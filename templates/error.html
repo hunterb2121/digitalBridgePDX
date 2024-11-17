@@ -1,0 +1,19 @@
+{% extends "layouts.html" %}
+
+{% block title %}
+    Error
+{% endblock %}
+{% block meta_description %}
+    Error fetching page
+{% endblock %}
+{% block canonical_link %}
+    https://example.com/error
+{% endblock %}
+{% block custom_meta %}
+    <meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block main %}
+    <h1>{{ code }}</h1>
+    <p>{{ message }}</p>
+{% endblock %}
