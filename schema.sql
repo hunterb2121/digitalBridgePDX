@@ -33,13 +33,13 @@ CREATE TABLE volunteer_interests (
     PRIMARY KEY (volunteer_id, interest_id)
 );
 
-CREATE TABLE volunteer_roles (
+CREATE TABLE volunteer_jobs (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR NOT NULL UNIQUE,
     description VARCHAR NOT NULL
 );
 
-CREATE INDEX volunteer_roles_title_idx ON volunteer_roles (title);
+CREATE INDEX volunteer_jobs_title_idx ON volunteer_jobs (title);
 
 CREATE TABLE partner_registration (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -198,6 +198,8 @@ CREATE TABLE volunteers (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL,
     email VARCHAR NOT NULL UNIQUE,
+    phone_number VARCHAR UNIQUE,
+    password_hash VARCHAR NOT NULL,
     availability VARCHAR NOT NULL,
     availability_notes TEXT,
     skills VARCHAR [],
@@ -207,13 +209,21 @@ CREATE TABLE volunteers (
 CREATE INDEX volunteers_name_idx ON volunteers (name);
 CREATE INDEX volunteers_email_idx ON volunteers (email);
 
-CREATE TABLE volunteers_jobs (
+CREATE TABLE volunteers_site_roles (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    title VARCHAR NOT NULL UNIQUE,
+    description TEXT
+);
+
+CREATE INDEX volunteers_site_roles_title_idx ON volunteers_site_roles (title);
+
+CREATE TABLE volunteers_site_jobs (
     volunteers_id BIGINT NOT NULL REFERENCES volunteers (id) ON DELETE CASCADE,
-    role_id BIGINT NOT NULL REFERENCES volunteer_roles (id) ON DELETE CASCADE,
+    role_id BIGINT NOT NULL REFERENCES volunteers_site_roles (id) ON DELETE CASCADE,
     PRIMARY KEY (volunteers_id, role_id)
 );
 
-CREATE TABLE volunteer_assignments (
+CREATE TABLE volunteers_assignments (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     volunteer_id BIGINT NOT NULL REFERENCES volunteers (id) ON DELETE CASCADE,
     task_type VARCHAR NOT NULL,
