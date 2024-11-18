@@ -3,6 +3,10 @@ import re
 from flask import render_template
 
 
+with open("10-million-password-list-top-1000000.txt") as file:
+    common_passwords = {line.strip() for line in file}
+
+
 # Function to return an error message
 def error(message, code):
     return render_template("error.html", message=message, code=code)
@@ -28,3 +32,16 @@ def phone_validation(phone):
     pattern = r"^\\+?\\d{1,4}?[-.\\s]?\\(?\\d{1,3}?\\)?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}$"
 
     return bool(re.match(pattern, phone))
+
+
+# Function to validate password
+def password_complexity_validation(password: str) -> bool:
+    if not isinstance(password, str):
+         return False
+    
+    pattern = r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+
+    if not re.match(pattern, password):
+        return False
+
+    return password not in common_passwords
