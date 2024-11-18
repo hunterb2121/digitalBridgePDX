@@ -10,7 +10,7 @@ CREATE TYPE device_condition ENUM('new', 'like new', 'good', 'needs repair', 'un
 CREATE TYPE device_status ENUM('in use', 'in storage', 'out for repair', 'unknown', 'N/A');
 
 -- Volunteer Registration Form
-CREATE TABLE volunteer_registration (
+CREATE TABLE IF NOT EXISTS volunteer_registration (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
@@ -24,21 +24,21 @@ CREATE TABLE volunteer_registration (
 );
 
 -- Apply chosen volunteer jobs that were marked in the volunteer registration form
-CREATE TABLE volunteer_interests (
+CREATE TABLE IF NOT EXISTS volunteer_interests (
     volunteer_id BIGINT NOT NULL REFERENCES volunteer_registration (id) ON DELETE CASCADE,
     interest_id BIGINT NOT NULL REFERENCES volunteer_jobs (id) ON DELETE CASCADE,
     PRIMARY KEY (volunteer_id, interest_id)
 );
 
 -- All the volunteer jobs available that are posted on the website
-CREATE TABLE volunteer_jobs (
+CREATE TABLE IF NOT EXISTS volunteer_jobs (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR NOT NULL UNIQUE,
     description VARCHAR NOT NULL
 );
 
 -- Partner Registration Form
-CREATE TABLE partner_registration (
+CREATE TABLE IF NOT EXISTS partner_registration (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     business_name VARCHAR NOT NULL,
     contact_name VARCHAR NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE partner_registration (
 );
 
 -- General Contact Form
-CREATE TABLE general_form (
+CREATE TABLE IF NOT EXISTS general_form (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE general_form (
 );
 
 -- Get Tech Support Form
-CREATE TABLE get_support_form (
+CREATE TABLE IF NOT EXISTS get_support_form (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE get_support_form (
 );
 
 -- Times available for tech support and marking which were chosen on the Get Tech Support Form
-CREATE TABLE get_support_times (
+CREATE TABLE IF NOT EXISTS get_support_times (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     support_form_id BIGINT NOT NULL REFERENCES get_support_form (id) ON DELETE CASCADE,
     morning BOOLEAN NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE get_support_times (
 );
 
 -- New Class Idea Request Form
-CREATE TABLE new_class_request_form (
+CREATE TABLE IF NOT EXISTS new_class_request_form (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE new_class_request_form (
 );
 
 -- Financial / Device Aid Registration Form
-CREATE TABLE need_aid_form (
+CREATE TABLE IF NOT EXISTS need_aid_form (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
@@ -106,7 +106,7 @@ CREATE TABLE need_aid_form (
 );
 
 -- Donation Form
-CREATE TABLE donating_form (
+CREATE TABLE IF NOT EXISTS donating_form (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
@@ -118,7 +118,7 @@ CREATE TABLE donating_form (
 );
 
 -- Recordings of Classes
-CREATE TABLE class_recordings (
+CREATE TABLE IF NOT EXISTS class_recordings (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR NOT NULL UNIQUE,
     description VARCHAR NOT NULL,
@@ -128,7 +128,7 @@ CREATE TABLE class_recordings (
 );
 
 -- External Resources
-CREATE TABLE external_resources (
+CREATE TABLE IF NOT EXISTS external_resources (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR NOT NULL UNIQUE,
     description VARCHAR NOT NULL,
@@ -137,7 +137,7 @@ CREATE TABLE external_resources (
 );
 
 -- Internal Resources
-CREATE TABLE internal_resources (
+CREATE TABLE IF NOT EXISTS internal_resources (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR NOT NULL UNIQUE,
     description VARCHAR NOT NULL,
@@ -147,7 +147,7 @@ CREATE TABLE internal_resources (
 );
 
 -- Translations for resources (blog posts, internal resources, classes, etc) and whether they are done or not
-CREATE TABLE translations (
+CREATE TABLE IF NOT EXISTS translations (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     content_type VARCHAR NOT NULL,
     content_id BIGINT NOT NULL,
@@ -157,7 +157,7 @@ CREATE TABLE translations (
 );
 
 -- Marking resources and things that need to be more accessible for people with disabilities and progress towards that
-CREATE TABLE accessibility_requests (
+CREATE TABLE IF NOT EXISTS accessibility_requests (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     resource_id BIGINT NOT NULL,
     request_type VARCHAR NOT NULL,
@@ -167,7 +167,7 @@ CREATE TABLE accessibility_requests (
 );
 
 -- Hold information for all events
-CREATE TABLE events (
+CREATE TABLE IF NOT EXISTS events (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR NOT NULL,
     description VARCHAR NOT NULL,
@@ -177,14 +177,14 @@ CREATE TABLE events (
 );
 
 -- Hold information for the different classes
-CREATE TABLE classes (
+CREATE TABLE IF NOT EXISTS classes (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR NOT NULL,
     description TEXT NOT NULL
 );
 
 -- Hold information for the volunteers
-CREATE TABLE volunteers (
+CREATE TABLE IF NOT EXISTS volunteers (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL,
     email VARCHAR NOT NULL UNIQUE,
@@ -197,7 +197,7 @@ CREATE TABLE volunteers (
 );
 
 -- Hold information for what jobs that volunteers assigned and able to do
-CREATE TABLE volunteers_assigned_jobs (
+CREATE TABLE IF NOT EXISTS volunteers_assigned_jobs (
     volunteer_id BIGINT NOT NULL REFERENCES volunteers (id) ON DELETE CASCADE,
     job_id BIGINT NOT NULL REFERENCES volunteer_jobs (id) ON DELETE CASCADE,
     assigned_date DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -205,14 +205,14 @@ CREATE TABLE volunteers_assigned_jobs (
 );
 
 -- Hold the different RBAC roles for the website
-CREATE TABLE site_roles (
+CREATE TABLE IF NOT EXISTS site_roles (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR NOT NULL UNIQUE,
     description TEXT
 );
 
 -- Assign different roles to the different volunteers
-CREATE TABLE user_roles (
+CREATE TABLE IF NOT EXISTS user_roles (
     volunteers_id BIGINT NOT NULL REFERENCES volunteers (id) ON DELETE CASCADE,
     role_id BIGINT NOT NULL REFERENCES site_roles (id) ON DELETE CASCADE,
     assigned_date DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -220,7 +220,7 @@ CREATE TABLE user_roles (
 );
 
 -- Hold the different assignments and tasks that are in the works
-CREATE TABLE assignments (
+CREATE TABLE IF NOT EXISTS assignments (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR NOT NULL UNIQUE,
     task_type VARCHAR NOT NULL,
@@ -230,7 +230,7 @@ CREATE TABLE assignments (
 );
 
 -- Assign the different volunteers to the different assignments/tasks
-CREATE TABLE volunteers_assignments (
+CREATE TABLE IF NOT EXISTS volunteers_assignments (
     volunteer_id BIGINT NOT NULL REFERENCES volunteers (id),
     assignment_id BIGINT NOT NULL REFERENCES assignments (id),
     assigned_date DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -238,7 +238,7 @@ CREATE TABLE volunteers_assignments (
 );
 
 -- Assign the different volunteers to different events
-CREATE TABLE event_volunteers (
+CREATE TABLE IF NOT EXISTS event_volunteers (
     event_id BIGINT NOT NULL REFERENCES events (id) ON DELETE CASCADE,
     volunteer_id BIGINT NOT NULL REFERENCES volunteers (id) ON DELETE CASCADE,
     role VARCHAR NOT NULL,
@@ -247,14 +247,14 @@ CREATE TABLE event_volunteers (
 );
 
 -- Hold the different categories for tech support (e.g., software, network, hardware, etc.)
-CREATE TABLE tech_support_categories (
+CREATE TABLE IF NOT EXISTS tech_support_categories (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL UNIQUE,
     description TEXT
 );
 
 -- Hold information for the different tech support tickets that have been created based off of requests from the Get Support Form, email, and phone
-CREATE TABLE tech_support_tickets (
+CREATE TABLE IF NOT EXISTS tech_support_tickets (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     requester_name VARCHAR NOT NULL,
     requester_email VARCHAR NOT NULL,
@@ -269,7 +269,7 @@ CREATE TABLE tech_support_tickets (
 );
 
 -- Hold notes for the different tech support tickets to keep track of what has happened on the tech support tickets
-CREATE INDEX tech_support_notes (
+CREATE INDEX IF NOT EXISTS tech_support_notes (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     request_id BIGINT NOT NULL REFERENCES tech_support_tickets (id) ON DELETE CASCADE,
     note_author BIGINT NOT NULL REFERENCES volunteers (id),
@@ -278,7 +278,7 @@ CREATE INDEX tech_support_notes (
 );
 
 -- Hold the different internal resources (guides, common issues, common fixes, where to get additional help, etc.) to help with tech support issues
-CREATE TABLE tech_support_resources (
+CREATE TABLE IF NOT EXISTS tech_support_resources (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR NOT NULL UNIQUE,
     description TEXT NOT NULL,
@@ -288,7 +288,7 @@ CREATE TABLE tech_support_resources (
 );
 
 -- Hold information for different donations
-CREATE TABLE donations (
+CREATE TABLE IF NOT EXISTS donations (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     what_donated donating NOT NULL,
     quantity NUMERIC(10,2) NOT NULL,
@@ -302,7 +302,7 @@ CREATE TABLE donations (
 );
 
 -- Hold information for people that need aid and haven't gotten it
-CREATE TABLE people_need_aid (
+CREATE TABLE IF NOT EXISTS people_need_aid (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
@@ -316,7 +316,7 @@ CREATE TABLE people_need_aid (
 );
 
 -- Hold information for people that have received aid
-CREATE TABLE received_aid (
+CREATE TABLE IF NOT EXISTS received_aid (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
@@ -327,7 +327,7 @@ CREATE TABLE received_aid (
 );
 
 -- Hold information on different businesses we partner with
-CREATE TABLE partners (
+CREATE TABLE IF NOT EXISTS partners (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     business_name VARCHAR NOT NULL,
     contact_person VARCHAR NOT NULL,
@@ -337,7 +337,7 @@ CREATE TABLE partners (
 );
 
 -- Hold information for grants that we are working on
-CREATE TABLE grants (
+CREATE TABLE IF NOT EXISTS grants (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR NOT NULL UNIQUE,
     description TEXT NOT NULL,
@@ -348,7 +348,7 @@ CREATE TABLE grants (
 );
 
 -- Hold information for the different fundraising activities we are holding
-CREATE TABLE fundraising_activities (
+CREATE TABLE IF NOT EXISTS fundraising_activities (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR NOT NULL UNIQUE,
     description TEXT NOT NULL,
@@ -359,7 +359,7 @@ CREATE TABLE fundraising_activities (
 );
 
 -- Hold the content for different social media posts
-CREATE TABLE social_media_posts (
+CREATE TABLE IF NOT EXISTS social_media_posts (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     platform VARCHAR NOT NULL,
     post_content TEXT NOT NULL,
@@ -368,14 +368,14 @@ CREATE TABLE social_media_posts (
 );
 
 -- Hold images and videos that go with the different social media posts
-CREATE TABLE social_media_posts_media (
+CREATE TABLE IF NOT EXISTS social_media_posts_media (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     post_id BIGINT NOT NULL REFERENCES social_media_posts (id) ON DELETE CASCADE,
     post_media_url VARCHAR NOT NULL
 );
 
 -- Hold information on all the devices that we currently have in our inventory
-CREATE TABLE devices (
+CREATE TABLE IF NOT EXISTS devices (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     device_type VARCHAR NOT NULL,
     device_manf VARCHAR NOT NULL,
@@ -393,7 +393,7 @@ CREATE TABLE devices (
 );
 
 -- Hold information for repairs that we are working on or have done for the different devices that we have received
-CREATE TABLE repair_logs (
+CREATE TABLE IF NOT EXISTS repair_logs (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     device_id BIGINT NOT NULL REFERENCES devices (id) ON DELETE CASCADE,
     technician_id BIGINT NOT NULL REFERENCES volunteers (id),
@@ -404,7 +404,7 @@ CREATE TABLE repair_logs (
 );
 
 -- Hold specific information for devices that are for internal use (tech support, classes, etc.)
-CREATE TABLE internal_inventory (
+CREATE TABLE IF NOT EXISTS internal_inventory (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     device_id BIGINT NOT NULL REFERENCES devices (id) ON DELETE CASCADE,
     purpose VARCHAR NOT NULL,
@@ -414,7 +414,7 @@ CREATE TABLE internal_inventory (
 );
 
 -- Hold specific information for devices that are being donated
-CREATE TABLE donation_inventory (
+CREATE TABLE IF NOT EXISTS donation_inventory (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     device_id BIGINT NOT NULL REFERENCES devices (id) ON DELETE CASCADE,
     recipient BIGINT REFERENCES received_aid (id),
@@ -423,7 +423,7 @@ CREATE TABLE donation_inventory (
 );
 
 -- Hold logs for auditing things that have been done on the website for transparency, accountability, and tracking 
-CREATE TABLE audit_logs (
+CREATE TABLE IF NOT EXISTS audit_logs (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     table_name VARCHAR NOT NULL,
     record_id BIGINT NOT NULL,
@@ -433,35 +433,42 @@ CREATE TABLE audit_logs (
     change_timestamp TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Hold logs for when a migration of the database happens
+CREATE TABLE IF NOT EXISTS migrations (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    filename TEXT NOT NULL UNIQUE,
+    applied_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Hold different tags for things like blog posts, newsletters, classes, etc.
-CREATE TABLE tags (
+CREATE TABLE IF NOT EXISTS tags (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL UNIQUE
 );
 
 -- Associate tags with specific blog posts
-CREATE TABLE post_tags (
+CREATE TABLE IF NOT EXISTS post_tags (
     post_id BIGINT NOT NULL REFERENCES blog_posts (id) ON DELETE CASCADE,
     tag_id BIGINT NOT NULL REFERENCES tags (id) ON DELETE CASCADE,
     PRIMARY KEY (post_id, tag_id)
 );
 
 -- Associate tags with specific newsletters
-CREATE TABLE newsletter_tags (
+CREATE TABLE IF NOT EXISTS newsletter_tags (
     newsletter_id BIGINT NOT NULL REFERENCES newsletters (id) ON DELETE CASCADE,
     tag_id BIGINT NOT NULL REFERENCES tags (id) ON DELETE CASCADE,
     PRIMARY KEY (newsletter_id, tag_id)
 );
 
 -- Associate tags with specific class recordings
-CREATE TABLE class_tags (
+CREATE TABLE IF NOT EXISTS class_tags (
     class_id BIGINT NOT NULL REFERENCES class_recordings (id) ON DELETE CASCADE,
     tag_id BIGINT NOT NULL REFERENCES tags (id) ON DELETE CASCADE,
     PRIMARY KEY (class_id, tag_id)
 );
 
 -- Hold information for blog posts, including the file path (still working out how to best do blog posts)
-CREATE TABLE blog_posts (
+CREATE TABLE IF NOT EXISTS blog_posts (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR NOT NULL,
     author_id BIGINT NOT NULL REFERENCES volunteers (id) ON DELETE SET NULL,
@@ -471,7 +478,7 @@ CREATE TABLE blog_posts (
 );
 
 -- Hold information for newsletters
-CREATE TABLE newsletters (
+CREATE TABLE IF NOT EXISTS newsletters (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR NOT NULL,
     issue_number INTEGER UNIQUE NOT NULL,
