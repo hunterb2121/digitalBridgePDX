@@ -1,13 +1,15 @@
+from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from ..utils.helpers import password_complexity_validation
+from ..utils.validation import password_complexity_validation
 from BaseModel import BaseModel
 
 
-class Volunteers(BaseModel):
+class Volunteers(BaseModel, UserMixin):
     table = "volunteers"
 
-    def __init__(self, name, email, phone_number, password_hash, availability, availability_notes, skills, volunteer_since):
+    def __init__(self, id, name, email, phone_number, password_hash, availability, availability_notes, skills, volunteer_since):
+        self._id = id
         self._name = name
         self._email = email
         self._phone_number = phone_number
@@ -16,6 +18,16 @@ class Volunteers(BaseModel):
         self._availability_notes = availability_notes
         self._skills = skills
         self._volunteer_since = volunteer_since
+
+    def get_id(self):
+        return str(self._id)
+    
+    @staticmethod
+    def authenticate(email, password):
+        volunteer = Volunteers.find_by_email(email)
+        if volunteer and check_password_hash(volunteer["_password_hash:"], password):
+            return volunteer
+        return None
 
     @classmethod
     def find_by_id(cls, id):
