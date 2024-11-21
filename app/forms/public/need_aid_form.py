@@ -1,12 +1,16 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, TelField, TextAreaField, SubmitField, RadioField
+from wtforms import StringField, EmailField, TelField, TextAreaField, SubmitField, RadioField, HiddenField
 from wtforms.validators import DataRequired, Email, Regexp, Length
 
 
 phone_pattern = r"^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$"
 
 
-class NewClassRequestForm(FlaskForm):
+class NeedAidForm(FlaskForm):
+    form_type = HiddenField(
+        default="need_aid"
+    )
+
     name = StringField(
         "Name", 
         validators=[DataRequired()]

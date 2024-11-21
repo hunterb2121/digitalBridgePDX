@@ -1,16 +1,15 @@
 from functools import wraps
 from flask import session, redirect, url_for, flash
 from flask_login import current_user
-from ..models.Volunteers import Volunteers
-from ..models.UserRoles import UserRoles
-from ..models.SiteRoles import SiteRoles
+from ..models.UserRolesModel import UserRolesModel
+from ..models.SiteRolesModel import SiteRolesModel
 
 
 def get_user_roles(volunteer_id):
-    user_roles = UserRoles.find_by_volunteer_id(volunteer_id)
+    user_roles = UserRolesModel.find_by_volunteer_id(volunteer_id)
     roles = []
     for role in user_roles:
-        user_role = SiteRoles.find_by_id(role["role_id"])
+        user_role = SiteRolesModel.find_by_id(role["role_id"])
         roles.append(user_role["title"])
     return roles
 

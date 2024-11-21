@@ -3,7 +3,7 @@ import re
 from flask import render_template
 
 
-with open("10-million-password-list-top-1000000.txt") as file:
+with open("app/utils/10-million-password-list-top-1000000.txt") as file:
     common_passwords = {line.strip() for line in file}
 
 

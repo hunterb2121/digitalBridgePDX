@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, TelField, TextAreaField, SubmitField, RadioField
+from wtforms import StringField, EmailField, TelField, TextAreaField, SubmitField, RadioField, HiddenField
 from wtforms.validators import DataRequired, Email, Regexp, Length
 
 
@@ -7,6 +7,10 @@ phone_pattern = r"^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[
 
 
 class DonateForm(FlaskForm):
+    form_type = HiddenField(
+        default="donate"
+    )
+
     name = StringField(
         "Name", 
         validators=[DataRequired()]
@@ -32,34 +36,19 @@ class DonateForm(FlaskForm):
         ]
     )
 
-    aid_type = RadioField(
-        "Type of aid needed", 
+    donate_type = RadioField(
+        "What are you planning on donating?", 
         validators=[
             DataRequired()
         ], 
         choices=[
             ("computer", "Computer"), 
             ("cell_phone", "Cell Phone"), 
-            ("tablet", "Tablet"), 
-            ("bills", "Bills"), 
-            ("other", "Other")
+            ("tablet", "Tablet"),
+            ("other_devices", "Other Device"), 
+            ("money", "Money")
         ],
         default="computer"
-    )
-
-    income = RadioField(
-        "Yearly Income", 
-        validators=[
-            DataRequired()
-        ], 
-        choices=[
-            ("lower", "Less than $30,001"), 
-            ("lower_middle", "$30,001 - $58,020"), 
-            ("middle", "$58,021 - $94,000"), 
-            ("middle_upper", "94,001 - $153,000"), 
-            ("upper", "Greater than $153,000")
-        ],
-        default="lower"
     )
 
     message = TextAreaField(
