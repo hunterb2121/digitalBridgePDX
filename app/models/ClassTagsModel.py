@@ -11,7 +11,7 @@ class ClassTagsModel(BaseModel):
     @classmethod
     def find_by_class_id(cls, class_id):
         query = f"SELECT * FROM {cls.table} WHERE class_id = %s"
-        return cls.get_one(query, (class_id,))
+        return cls.get_all(query, (class_id,))
 
     @classmethod
     def find_by_tag_id(cls, tag_id):

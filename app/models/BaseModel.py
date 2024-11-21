@@ -20,6 +20,11 @@ class BaseModel:
         return get_one_result(query, parameters)
     
     @classmethod
+    def get_all_records(cls):
+        query = f"SELECT * FROM {cls.table}"
+        return cls.get_all(query)
+    
+    @classmethod
     def insert(cls, columns, values):
         """
         Insert a new record into a table.

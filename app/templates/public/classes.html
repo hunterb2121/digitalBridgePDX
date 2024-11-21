@@ -1,0 +1,65 @@
+{% extends "base_public.html" %}
+
+{% set page_title = "Digital Bridge PDX Classes" %}
+{% set page_description = "Are you interested in taking some tech classes? Don't have the time or money for long and drawn out tech classes? Interested in learning about different tech careers? Come check out our free and interesting technology classes!" %}
+
+{% set current_page = 'classes' %}
+
+{% block main %}
+    <h1>Tech Classes</h1>
+
+    <section id="class_calendar">
+    <h2>Class Calendar</h2>
+    <p>Class Calendar coming soon!</p>
+    </section>
+
+    <section id="class_description">
+        <h2>Class Descriptions</h2>
+        {% if class_list %}
+            {% for class in class_list %}
+                <div id="class-{{ class[0] }}" class="class-description-block">
+                    <h3>{{ class[1] }}</h3>
+                    <p>{{ class[2] }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+                <p>Class descriptions coming soon!</p>
+        {% endif %}
+    </section>
+
+    <section id="class_recordings">
+        <h2>Recent Recordings of Classes</h2>
+        {% if class_recordings %}
+            {% for id, recording in class_recordings.items() %}
+                <div id="class-recording-{{ id }}" class="class_recording">
+                    <h3 class="recording_title">{{ recording.title }}</h3>
+                    <p class="recording_description">{{ recording.description }}</p>
+                    <video class="class_video" width="30%" height="auto" controls>
+                        <source src="{{ recording.file_path }}" type="video/mp4">
+                        I'm sorry! Your browser doesn't support this video.
+                    </video>
+                    <p class="recording_date_recorded">{{ recording.date_recorded.strftime('%B %d, %Y') }}</p>
+                    <p class="recording_duration">Video Duration: {{ recording.duration }}</p>
+                    {% for tag in recording.tags %}
+                        <p class="recording_tag">{{ tag }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Class recordings coming soon!</p>
+        {% endif %}
+    </section>
+
+    <section id="class_idea_form">
+        <h3>Ideas for New Classes</h3>
+        <p>Are you interested in learning something that we aren't teaching yet? Submit your request below, and we will work to make it happen.</p>
+        <form id="class_idea_form" method="post" action="{{ url_for('public.classes') }}">
+            {{ request_form.hidden_tag() }}
+            {{ request_form.name.label }}<span class="required_input_indicator">*</span>: {{ request_form.name }}
+            {{ request_form.email.label }}<span class="required_input_indicator">*</span>: {{ request_form.name }}
+            {{ request_form.phone_number.label }}: {{ request_form.phone_number }}
+            {{ request_form.class_idea.label }}<span class="required_input_indicator">*</span>: {{ request_form.class_idea }}
+            {{ request_form.submit }}
+        </form>
+    </section>
+{% endblock %}

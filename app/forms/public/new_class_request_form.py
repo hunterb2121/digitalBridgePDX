@@ -31,7 +31,7 @@ class NewClassRequestForm(FlaskForm):
             )
         ]
     )
-    message = TextAreaField(
+    class_idea = TextAreaField(
         "Message", 
         validators=[
             DataRequired(), 
