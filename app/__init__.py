@@ -1,14 +1,17 @@
 from flask import Flask
 from flask_session import Session
 from flask_login import LoginManager
+from flask_wtf.csrf import CSRFProtect
+import os
 import redis
 
-from app.routes import register_blueprints
+from .routes import register_blueprints
 
 
 def create_app():
     app = Flask(__name__)
 
+    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
     app.config["SESSION_TYPE"] = "redis"
     app.config["SESSION_PERMANENT"] = False
     app.config["SESSION_USE_SIGNER"] = True
@@ -16,6 +19,8 @@ def create_app():
     app.config["SESSION_REDIS"] = redis.StrictRedis(host="127.0.0.1", port=6379)
 
     Session(app)
+    csrf = CSRFProtect(app)
+    csrf.init_app(app)
     login_manager = LoginManager(app)
     login_manager.login_view = "auth.login"
 

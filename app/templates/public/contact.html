@@ -1,0 +1,51 @@
+{% extends "..base_public.html" %}
+
+{% block title %}
+    Contact Digital Bridge PDX
+{% endblock %}
+
+{% block main %}
+    <h1>Contact Us</h1>
+
+    <article>
+        <h2>Contact Form</h2>
+        <p>Contact us for any general inquiries, comments, or concerns.</p>
+        <form method="post">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                <label for="general-name">{{ form.name.label }}<span class="required_input_indicator">*</span>:</label>
+                {{ form.name(id="general-name", name="name", class="form-control", aria-describedby="general-name-error") }}
+                {% if form.name.errors %}
+                    <span id="general-name-error" class="error-text">{{ form.name.errors[0] }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="email">{{ form.email.label }}<span class="required_input_indicator">*</span>:</label>
+                {{ form.email(id="general-email", name="email", class="form-control", aria-describedby="email-error") }}
+                {% if form.email.errors %}
+                    <span id="general-email-error" class="error-text">{{ form.email.errors[0] }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="general-phone_number">{{ form.phone_number.label }}:</label>
+                {{ form.phone_number(id="general-phone_number", name="phone_number", class="form-control", aria-describedby="phone-number-error") }}
+                {% if form.phone_number.errors %}
+                    <span id="general-phone-number-error" class="error-text">{{ form.phone_number.errors[0] }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="general-form-message">{{ form.message.label }}<span class="required_input_indicator">*</span>:</label>
+                {{ form.message(id="general-form-message", name="message", class="form-control", aria-describedby="form-message-error") }}
+                {% if form.message.errors %}
+                    <span id="general-message-error" class="error-text">{{ form.message.errors[0] }}</span>
+                {% endif %}
+            </div>
+
+            <button type="submit">{{ form.submit.label }}</button>
+        </form>
+    </article>
+{% endblock %}
