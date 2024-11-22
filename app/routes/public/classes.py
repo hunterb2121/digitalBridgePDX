@@ -25,7 +25,7 @@ def classes():
 
     if recent_recordings:
         class_ids = [recording[0] for recording in recent_recordings]
-        all_tags = ClassTagsModel.find_by_class_id(class_ids)
+        all_tags = [ClassTagsModel.find_by_class_id(id) for id in class_ids]
 
         for recording in recent_recordings:
             class_recording_info[recording[0]] = {
@@ -37,7 +37,7 @@ def classes():
                 "tags": []
             }
             for tag in all_tags:
-                class_recording_info[recording[0]]["tags"].append(TagsModel.find_by_id(tag[1]).name)
+                class_recording_info[recording[0]]["tags"].append(TagsModel.find_by_id(tag[1])[1])
 
     if request.method == "POST":
         if new_class_request_form.validate_on_submit():

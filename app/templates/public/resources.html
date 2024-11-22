@@ -1,0 +1,71 @@
+{% extends "base_public.html" %}
+
+{% set page_title = "Digital Bridge PDX Resources" %}
+{% set page_description = "Looking for free resources to learn more about tech? Missed a class that you wanted to attend? Come check out our free resources from our classes, recordings of our classes, and our favorite free external resources to learn more about technology." %}
+
+{% set current_page = 'resources' %}
+
+{% block main %}
+    <h1>Resources</h1>
+
+    <section id="resource_library">
+        <h2>Resource Library</h2>
+        <p>Get downloadable guides, handouts, and presentations from our previous classes.</p>
+        {% if internal_resources %}
+            {% for internal_resource in internal_resources %}
+                <div class="internal_resources">
+                    <h3 class="internal_resource_title">{{ internal_resource[1] }}</h3>
+                    <p class="internal_resource_description">{{ internal_resource[2] }}</p>
+                    <a class="internal_resource_download" href="{{ internal_resource[3] }}" download="{{ internal_resource_title.lower().replace(' ', '_') }}">Download Now</a>
+                    <p class="internal_resource_category">Category: {{ internal_resource[4] }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Resources coming soon!</p>
+        {% endif %}
+    </section>
+
+    <section id="video_library">
+        <h2>Video Library</h2>
+        <p>View all of our past classes, completely for free for everyone.</p>
+        {% if class_recordings %}
+            {% for id, recording in class_recordings.items() %}
+                <div id="class-recording-resource-{{ id }}" class="class_recording">
+                    <h3 class="recording_title">{{ recording.title }}</h3>
+                    <p class="recording_description">{{ recording.description }}</p>
+                    <video class="class_video" width="30%" height="auto" controls>
+                        <source src="{{ recording.file_page }}" type="video/mp4">
+                        I'm sorry! Your browser doesn't support this video.
+                    </video>
+                    <p class="recording_date_recorded">{{ recording.date_recorded.strftime('%B %d, %Y') }}</p>
+                    <p class="recording_duration">Video Duration: {{ recording.duration }}</p>
+                    {% for tag in recording.tags %}
+                        <p class="recording_tag">{{ tag }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Videos coming soon!</p>
+        {% endif %}
+    </section>
+
+    <section id="external_resources">
+        <h2>Free External Resources</h2>
+        <p>There are a lot of amazing free resources all over the web. Here are links to some of our favorite resources.</p>
+
+        {% if external_resources %}
+            {% for external_resource in external_resources %}
+                <div class="external_resources">
+                    <h3 class="external_resource_title">{{ external_resource[1] }}</h3>
+                    <p class="external_resource_description">{{ external_resource[2] }}</p>
+                    <a class="external_resource_link" href="{{ external_resource[3] }}">Check It Out</a>
+                    <p class="external_resource_category">Category: {{ external_resource[4] }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>External resources coming soon!</p>
+        {% endif %}
+
+        <p>If you have recommendations for other free resources, please contact us using the contact form <a href="{{ url_for('public.contact') }}">here.</a></p>
+    </section>
+{% endblock %}

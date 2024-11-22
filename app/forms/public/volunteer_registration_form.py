@@ -1,15 +1,24 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, TelField, TextAreaField, SubmitField, RadioField
+from wtforms import StringField, EmailField, TelField, TextAreaField, SubmitField, RadioField, HiddenField, SelectMultipleField, widgets
 from wtforms.validators import DataRequired, Email, Regexp, Length
+from ...models.VolunteerJobsModel import VolunteerJobsModel
 
 
 phone_pattern = r"^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$"
 
+jobs = VolunteerJobsModel.get_all_records() or []
+
 
 class VolunteerRegistrationForm(FlaskForm):
+    form_type = HiddenField(
+        default="volunteer"
+    )
+
     name = StringField(
         "Name", 
-        validators=[DataRequired()]
+        validators=[
+            DataRequired()
+        ]
     )
 
     email = EmailField(
@@ -32,19 +41,16 @@ class VolunteerRegistrationForm(FlaskForm):
         ]
     )
 
-    volunteer_job = RadioField(
-        "What are you donating?", 
+    volunteer_job = SelectMultipleField(
+        "What are you interested in volunteering to do?", 
         validators=[
             DataRequired()
         ], 
         choices=[
-            ("computer", "Computer"), 
-            ("cell_phone", "Cell Phone"), 
-            ("tablet", "Tablet"),
-            ("other_device", "Other Device"), 
-            ("money", "Money"), 
+            (t[1].lower(), t[1].title()) for t in jobs
         ],
-        default="computer"
+        option_widget=widgets.CheckboxInput(),
+        widget=widgets.ListWidget(prefix_label=False)
     )
 
     experience_in_it = RadioField(
@@ -55,20 +61,18 @@ class VolunteerRegistrationForm(FlaskForm):
         choices=[
             ("yes", "Yes"),
             ("no", "No")
-        ],
-        default="yes"
+        ]
     )
 
     other_experience = RadioField(
         "Do you have experience working in any other field related to our volunteer opportunities?",
         validators=[
             DataRequired()
-        ]
+        ],
         choices=[
             ("yes", "Yes"),
             ("no", "No")
-        ],
-        default="yes"
+        ]
     )
 
     experience_amount = RadioField(
@@ -81,8 +85,7 @@ class VolunteerRegistrationForm(FlaskForm):
             ("1-5", "1 - 5 years"),
             ("5-10", "5 - 10 years"),
             ("10+", "Over 10 years")
-        ],
-        default="0-1"
+        ]
     )
 
     message = TextAreaField(

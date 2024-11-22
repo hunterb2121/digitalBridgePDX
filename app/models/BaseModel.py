@@ -21,8 +21,8 @@ class BaseModel:
     
     @classmethod
     def get_all_records(cls):
-        query = f"SELECT * FROM {cls.table}"
-        return cls.get_all(query)
+        result = cls.get_all(f"SELECT * FROM {cls.table}")
+        return result if result else []
     
     @classmethod
     def insert(cls, columns, values):
@@ -37,6 +37,20 @@ class BaseModel:
         columns_str = ', '.join(columns)
         query = f'INSERT INTO {cls.table} ({columns_str}) VALUES ({placeholders})'
         cls.execute_query(query, values)
+
+    @classmethod
+    def insert_return_id(cls, columns, values):
+        """
+        Insert a new record into a table and return the id.
+        table: str - the table name
+        columns: list - columns for the insert
+        values: tuple - values for the columns
+        """
+
+        placeholders = ', '.join(['%s'] * len(values))
+        columns_str = ', '.join(columns)
+        query = f'INSERT INTO {cls.table} ({columns_str}) VALUES ({placeholders}) RETURNING id'
+        return cls.execute_query(query, values)
 
     @classmethod
     def update(cls, columns, values, condition):

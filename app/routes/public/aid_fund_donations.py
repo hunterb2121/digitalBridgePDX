@@ -33,7 +33,6 @@ def aid_fund_donations():
             )
             flash("Form submitted successfully!", "success")
             return redirect(url_for("public.aid_fund_donations"))
-        
         elif donate.validate_on_submit() and donate.form_type.data == "donate":
             DonatingFormModel.insert(
                 [
@@ -51,6 +50,8 @@ def aid_fund_donations():
                     donate.message.data
                 )
             )
+            flash("Form submitted successfully!", "success")
+            return redirect(url_for("public.aid_fund_donations"))
         else:
             flash("There was a problem submitting your form. Please check your form input and try again.", "danger")
         

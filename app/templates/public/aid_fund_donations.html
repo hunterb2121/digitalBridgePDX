@@ -67,7 +67,7 @@
             {{ need_aid_form.email.label }}<span class="required_input_indicator">*</span>: {{ need_aid_form.email }}
             {{ need_aid_form.phone_number.label }}: {{ need_aid_form.phone_number }}
             <div>
-                <p>{{ need_aid_form.aid_type.label.text }}</p>
+                <p>{{ need_aid_form.aid_type.label.text }}<span class="required_input_indicator">*</span></p>
                 <ul>
                     {% for need_aid_type_subfield in need_aid_form.aid_type %}
                         <li>
@@ -79,7 +79,7 @@
                 </ul>
             </div>
             <div>
-                <p>{{ need_aid_form.income.label.text }}</p>
+                <p>{{ need_aid_form.income.label.text }}<span class="required_input_indicator">*</span></p>
                 <ul>
                     {% for need_aid_income_subfield in need_aid_form.income %}
                         <li>

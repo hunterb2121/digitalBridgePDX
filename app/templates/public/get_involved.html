@@ -1,0 +1,360 @@
+{% extends "base_public.html" %}
+
+{% set page_title = "Digital Bridge PDX Get Involved" %}
+{% set page_description = "Are you a person that wants to volunteer? Are you a business that wants to partner with us? Come get involved with Digital Bridge PDX now!" %}
+
+{% set current_page = 'get_involved' %}
+
+{% block main %}
+    <h1>Get Involved</h1>
+    <section id="volunteer_opportunities">
+        <h2>Volunteer Opportunities</h2>
+        <p>Are you interested in volunteering? Do you have tech skills and want to share those with the community? Do you have other skills that aren't necessarily tech skills that can still help? If so, we'd be happy to have you. There are no time commitments for volunteering. Volunteer as little or as much as you would like.</p>
+        <p>If you are interested in volunteering for the first time, we will invite you to attend our next bi-monthly volunteer get together and training. This is an optional event for our existing volunteers, but we highly encourage everyone who volunteers to attend to meet new volunteers and socialize and get to know our other volunteers better.</p>
+        <p>To keep our community safe and healthy we require that all volunteers wear masks when attending in-person events. This helps make sure that we are not still contributing to the spread of COVID and other communicable diseases that are harmful and dangerous to our immunocompromised and disabled community members.</p>
+        <p>Here is an overview of our opportunities:</p>
+        <ul>
+            {% if our_jobs %}
+                {% for job in our_jobs %}
+                    <li>{{ job[1] }}</li>
+                    <p>{{ job[2] }}</p>
+                {% endfor %}
+            {% else %}
+                <p>Job descriptions coming soon!</p>
+            {% endif %}
+        </ul>
+    </section>
+
+    <section id="volunteer_registration_form_section">
+        <form id="volunteer_registration_form" method="post" action="{{ url_for('public.get_involved') }}">
+            {{ volunteer_form.hidden_tag() }}
+            {{ volunteer_form.form_type }}
+            {{ volunteer_form.name.label }}<span class="required_input_indicator">*</span>: {{ volunteer_form.name }}
+            {{ volunteer_form.email.label }}<span class="required_input_indicator">*</span>: {{ volunteer_form.email }}
+            {{ volunteer_form.phone_number.label }}: {{ volunteer_form.phone_number }}
+            {% if our_jobs %}
+                <div>
+                    <p>{{ volunteer_form.volunteer_job.label.text }}<span class="required_input_indicator">*</span></p>
+                    <ul>
+                        {% for volunteer_job_subfield in volunteer_form.volunteer_job %}
+                            <li>
+                                <label for="{{ volunteer_job_subfield.id }}">
+                                    {{ volunteer_job_subfield }} {{ volunteer_job_subfield.label.text }}
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {{ volunteer_form.experience_in_it.label }}<span class="required_input_indicator">*</span>: {{ volunteer_form.experience_in_it }}
+            {{ volunteer_form.other_experience.label }}<span class="required_input_indicator">*</span>: {{ volunteer_form.other_experience }}
+            {{ volunteer_form.experience_amount.label }}<span class="required_input_indicator">*</span>: {{ volunteer_form.experience_amount }}
+            {{ volunteer_form.message.label }}: {{ volunteer_form.message }}
+            {{ volunteer_form.submit }}
+        </form>
+    </section>
+
+    <section id="volunteer_faq">
+        <h2>FAQ for Volunteers</h2>
+        <div class="accordion" id="volunteer_faq_accordion">
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        What volunteer opportunities are available?
+                    </button>
+                </h3>
+                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        We offer a range of volunteer opportunities from technical to non-technical roles that you can read more about <a href="#volunteer_opportunities">here.</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Do I need to have technical skills to volunteer?
+                    </button>
+                </h3>
+                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                    Not at all! Even if you don't have technical skills, we have plenty of roles that don't require technical skills. If you want to get involved in a technical role and don't have the needed tech skills, we are happy to train you and provide you with resources to get you up to speed.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        What is the time commitment for volunteering?
+                    </button>
+                </h3>
+                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        There isn't one. You can volunteer as little or as much as you would like. We do ask that you volunteer at least a couple of hours a month but we understand that life happens. We have bi-monthly volunteer get togethers that we ask you to attend, but those are not mandatory unless you are volunteering for the first time.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        Can I volunteer remotely?
+                    </button>
+                </h3>
+                <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        Absolutely! We offer remote tech support and a lot of the outreach and logistical volunteering opportunities don't require you to be in-person.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        What training or support do volunteers receive?
+                    </button>
+                </h3>
+                <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        We have bi-monthly volunteer meetings that are used to help get new volunteers up to speed and to get current volunteers caught up with everything other people are doing. Every volunteer is encouraged to work together and reach out to any organizers with any questions or to ask for support if they need it. We also will help train any volunteers in skills they would like to learn that are related to our operations. 
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                        Can I volunteer for more than one role?
+                    </button>
+                </h3>
+                <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        Absolutely! There are plenty of roles that overlap in skills. If you are interested in volunteering in more than one role, we highly encourage you to pursue that, and if you don't like a role you try out, you don't have to do that again.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                        What kind of technology knowledge or certifications do I need in order to provide tech support or teach classes? 
+                    </button>
+                </h3>
+                <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        For tech support, you would probably need knowledge along the levels of CompTIA A+. If you don't have those skills already, we are more than happy to help you get those. For classes, we ask that you have either worked in the tech field in some capacity or are able to demonstrate that you have the knowledge in a conversation with other volunteers who are experienced in the tech field. 
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                        Where are volunteer opportunities located?
+                    </button>
+                </h3>
+                <div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        All volunteer opportunities are located in the Portland, Oregon area, including surrounding areas. Actual locations vary for each event or activity based on where we can get space. 
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                        Do I need to bring any tools, devices, or materials for volunteering?
+                    </button>
+                </h3>
+                <div id="collapseNine" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        Not usually. If you volunteering at an in-person event, we will provide things like a computer and tools like screwdrivers, tweazers, canned air, and more unless you would like to bring your own. If you are working remote, you will need to use your own computer if one is needed. We don't use remote software, so you won't need to install anything on your computer. The computer is just nice for researching issues while working.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                        Are there costs associated with volunteering (e.g., travel or supplies)?
+                    </button>
+                </h3>
+                <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        The only thing you need to pay for is travel to the main volunteer location. If you are going to someone's house for an in-house appointment, you will meet with the second volunteer who will accompany you at a certain place. Once you are on the road to that location, we will compensate you for your gas and wear on your car. Any supplies that you need will be supplied to you unless you prefer using your own supplies/tools.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                        How do I apply to become a volunteer?
+                    </button>
+                </h3>
+                <div id="collapseEleven" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        You can either call us, email us, or fill out the form above.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+                        What happen after I submit my application?
+                    </button>
+                </h3>
+                <div id="collapseTwelve" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        Once you submit your application, another one of our volunteers will reach out to you within 2 days to discuss logistics and invite you to our next volunteer meet up. 
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
+                        Are there background checks for volunteers?
+                    </button>
+                </h3>
+                <div id="collapseThirteen" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        Anyone is welcome to apply and volunteer regardless of your background, so we have chosen not to background check our volunteers.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourteen" aria-expanded="false" aria-controls="collapseFourteen">
+                        Can I track the progress of the people or initiatives I've helped with?
+                    </button>
+                </h3>
+                <div id="collapseFourteen" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        Absolutely! We will check in with people that we've helped on a semi-regular basis. As long as you are on our list of volunteers, you will receive progress updates on those people. As for initiatives, you will be kept up-to-date with those initiatives as long as you are a volunteer.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFifteen" aria-expanded="false" aria-controls="collapseFifteen">
+                        Are there opportunities for recognition or feedback for volunteers?
+                    </button>
+                </h3>
+                <div id="collapseFifteen" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        We try to do regular check-ins with our volunteers to provide regular feedback and to receive feedback from you as well. On our newletters, we will shout out new volunteers and volunteers who have done exceptionally well over the last month.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSixteen" aria-expanded="false" aria-controls="collapseSixteen">
+                        What if I have limited availability but still want to help?
+                    </button>
+                </h3>
+                <div id="collapseSixteen" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        That's no issue! We would love to have you help out in any way possible whether that's doing one 30 minute session a month on a weekend or doing a full 2-3 hour tech support session. 
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeventeen" aria-expanded="false" aria-controls="collapseSeventeen">
+                        Can groups or organizations volunteer together?
+                    </button>
+                </h3>
+                <div id="collapseSeventeen" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        Absolutely! We highly encourage groups or organizations to volunteer together. The more people that volunteer, the more people we can help and the more impact we can make on our community.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEighteen" aria-expanded="false" aria-controls="collapseEighteen">
+                        How can I suggest a new idea or program to the organization?
+                    </button>
+                </h3>
+                <div id="collapseEighteen" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                    <div class="accordion-body">
+                        Since we are a non-hierarchical group, we would love to hear your suggestions for ideas or programs. We encourage you to bring it up at our next volunteer meet up, and we will all vote on the idea or program.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="partner_opportunities">
+        <h2>Partner With Us</h2>
+        <section id="why_partner">
+            <h3>What Partner With Us?</h3>
+            <ul>
+                <li>You will be helping bridge the digital divide here in Portland, Oregon.</li>
+                <li>You will be supporting equitable access to technology and digital literacy.</li>
+                <li>You will be able to enhance your organization's community impact and visibility.</li>
+            </ul>
+        </section>
+
+        <section id="how_to_partner">
+            <h3>How You Can Partner With Us</h3>
+            <ol>
+                <li>Provide Financial Support</li>
+                <ul>
+                    <li>Sponsor specific initiatives, like tech classes or aid funds.</li>
+                    <li>Help cover operational costs, such as class venue rentals or device repairs.</li>
+                </ul>
+                    <li>Donate Equipment or Supplies</li>
+                <ul>
+                    <li>Provide refurbished devices, software licenses, tools, or other tech-related resources</li>
+                    <li>Reduce e-waste by channeling surplus technology to those in need</li>
+                </ul>
+                    <li>Offer Expertise</li>
+                <ul>
+                    <li>Collaborate on tech-related events or classes with your staff's expertise</li>
+                    <li>Share knowledge and resources to enhance our programs</li>
+                </ul>
+                    <li>Collaborate on Outreach</li>
+                <ul>
+                    <li>Help promote our services to your network</li>
+                    <li>Refer individuals who may benefit from our tech support or classes</li>
+                </ul>
+                    <li>Provide Space</li>
+                <ul>
+                    <li>Allow us to use your facilities for hosting classes, events, or drop-in tech support</li>
+                </ul>
+            </ol>
+        </section>
+
+        <section id="partner_benefits">
+            <h3>Recognition for Our Partners</h3>
+            <p>If you partner with us, we will highlight our partnership in a number of ways.</p>
+            <ul>
+                <li>Your logo and name will be featured on our website and event materials</li>
+                <li>Your partnership with us will be highlighted in newsletters and/or social media</li>
+                <li>There may be opportunities for co-branding on events or initiatives</li>
+            </ul>
+        </section>
+
+        <section id="partner_registration_form_section">
+            <form id="partner_registration_form" method="post" action="{{ url_for('public.get_involved') }}">
+                {{ partner_form.hidden_tag() }}
+                {{ partner_form.form_type }}
+                {{ partner_form.business_name.label }}<span class="required_input_indicator">*</span>: {{ partner_form.business_name }}
+                {{ partner_form.contact_name.label }}<span class="required_input_indicator">*</span>: {{ partner_form.contact_name }}
+                {{ partner_form.email.label }}<span class="required_input_indicator">*</span>: {{ partner_form.email }}
+                {{ partner_form.phone_number.label }}<span class="required_input_indicator">*</span>: {{ partner_form.phone_number }}
+                {{ partner_form.message.label }}: {{ partner_form.message }}
+                {{ partner_form.submit }}
+            </form>
+        </section>
+    </section>
+{% endblock %}
