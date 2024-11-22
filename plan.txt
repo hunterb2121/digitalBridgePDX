@@ -1,0 +1,345 @@
+1. Public-Facing Website (High Priority)
+
+    Forms Setup:
+        Volunteer Registration
+        Partner Registration
+        General Form (Questions, Comments, Concerns)
+        Get Support Form
+        New Class Request Form
+        Need Aid Form
+        Donation Form
+
+    Public-Facing Pages:
+        Landing Page: Include basic information, upcoming event details, and a CTA for volunteers and support seekers.
+        About Us: Share your mission and goals.
+        Events Page: Highlight upcoming events.
+        Resources Page: Start populating external and internal resources.
+
+2. Admin Functionality (Foundational Priority)
+
+    Admin Dashboard: Provide an overview of pending applications, tickets, and upcoming events.
+    Manage Volunteers: Enable admins to review and approve volunteer applications.
+    Manage Tech Support Tickets: Set up functionality to assign tickets to volunteers.
+    Event Management: Create and manage upcoming events, assign roles, and track RSVPs.
+    Donation and Aid Tracking: Allow admins to review donation offers and aid requests.
+
+3. Tech Support Ticket System (High Priority)
+
+    Ticket Creation and Assignment:
+        Allow users to submit tickets via the Get Support Form.
+        Enable admins to assign tickets to volunteers based on availability and skills.
+
+    Volunteer Interface for Tickets:
+        List assigned tickets with statuses and notes.
+        Provide resources for resolving issues.
+
+4. Event Management System (For Upcoming Events)
+
+    Event Volunteer Signups: Allow volunteers to register for roles at events.
+    Event Details Page: Provide info about time, location, and expectations.
+    RSVP and Confirmation: Let attendees confirm participation.
+
+5. Volunteer Portal (Secondary Priority)
+
+    Build a simple portal with role-based dashboards to:
+        Manage assigned jobs, roles, and tasks.
+        Access internal resources and training materials.
+
+
+    Volunteer Application Form (Public)
+        A public-facing page where prospective volunteers can apply by submitting their details (e.g., name, email, phone number, availability, and interests).
+        This form doesn't create user accounts; it just saves the application data into a volunteer_applications table or similar.
+
+    Admin Portal for Applications
+        A protected route where admins can review applications.
+        Admins can decide to accept or reject applications.
+
+    Volunteer Account Creation (Admin-Only)
+        When an application is approved, the admin creates a volunteer account by filling in necessary fields (like generating a username and password for the volunteer).
+        Optionally, the system could send an email to the new volunteer with login credentials or instructions for setting up their account.
+
+What You Do Instead of register.py
+
+    Public Form Route: A route like /apply for handling volunteer applications.
+    Admin Review Routes:
+        A route like /admin/applications to list and manage pending applications.
+        A route like /admin/application/<id> to view application details and perform actions (approve/reject).
+    Admin Account Creation Route: A route like /admin/volunteers/new for creating volunteer accounts.
+
+
+Volunteer Registration
+
+    Pages:
+        Volunteer Applications: View all volunteer applications (Admin only).
+        Application Details: View details of a specific application.
+        Manage Volunteer Profile: Admins can approve/reject applications or edit volunteer profiles.
+
+Volunteer Interests
+
+    Pages:
+        Manage Volunteer Interests: Assign interests to volunteers.
+        Volunteer Interest Report: Generate reports based on interests for job assignments.
+
+Volunteer Jobs
+
+    Pages:
+        Manage Jobs: Create, edit, or delete available jobs.
+        Volunteer Job Assignments: Assign jobs to volunteers (Admins/Event Planning).
+
+Partner Registration
+
+    Pages:
+        Manage Partners: View, approve, and edit partner applications.
+
+General Form
+
+    Pages:
+        Manage General Inquiries: View and respond to public inquiries.
+
+Get Support Form
+
+    Pages:
+        Support Requests: View and assign support requests to tech support volunteers.
+
+Get Support Times
+
+    Pages:
+        Available Support Times: Manage and update time slots for tech support.
+
+New Class Request Form
+
+    Pages:
+        Requested Classes: View and review requests for new classes.
+        Manage Classes: Convert requests into active classes.
+
+Need Aid Form
+
+    Pages:
+        Aid Requests: Review and process requests for financial or device aid.
+
+Donating Form
+
+    Pages:
+        Donations Management: Manage donation offers from the public.
+
+Class Recordings
+
+    Pages:
+        Manage Recordings: Upload, update, and categorize class recordings.
+
+External Resources
+
+    Pages:
+        Manage External Resources: Add or update external resources.
+
+Internal Resources
+
+    Pages:
+        Manage Internal Resources: Add or update internal resources.
+
+Translations
+
+    Pages:
+        Manage Translations: Track translation progress for resources or classes.
+
+Accessibility Requests
+
+    Pages:
+        Manage Accessibility Requests: Track and update accessibility improvements.
+
+Events
+
+    Pages:
+        Event Management: Create, edit, and manage events.
+        Event Volunteer Assignments: Assign volunteers to events.
+
+Classes
+
+    Pages:
+        Manage Classes: Create and update class information.
+        Assign Class Volunteers: Assign teachers or helpers to classes.
+
+Volunteers
+
+    Pages:
+        Volunteer Dashboard: View personal information and assignments.
+        Manage Volunteers: Admin-only page to manage volunteer information.
+        Volunteer Assignments: Assign jobs and roles to volunteers.
+
+Site Roles
+
+    Pages:
+        Manage RBAC Roles: Admin-only page to manage RBAC roles.
+
+User Roles
+
+    Pages:
+        Assign RBAC Roles: Assign roles to users.
+
+Assignments
+
+    Pages:
+        Manage Assignments: Create and update tasks.
+        Volunteer Assignments: Assign tasks to volunteers.
+
+Tech Support Tickets
+
+    Pages:
+        Tech Support Dashboard: View and manage assigned tickets.
+        Ticket Details: View detailed information for specific tickets.
+
+Donations
+
+    Pages:
+        Donation Records: Manage donation history and information.
+
+Inventory Management (Devices, Internal Inventory, etc.)
+
+    Pages:
+        Manage Inventory: View and update inventory information.
+        Repair Logs: Log and manage device repairs.
+
+Social Media Management
+
+    Pages:
+        Manage Social Media Posts: Create and update social media content.
+
+Audit Logs
+
+    Pages:
+        Audit Logs Viewer: Admin-only page for tracking all actions.
+
+Additional Pages
+
+    Dashboard: A general landing page for volunteers and admins.
+    Login/Register: For authentication and role-based access.
+    Error Pages: For unauthorized access, 404 errors, etc.
+
+RBAC Roles and Permissions
+Role	Pages Allowed	Permissions
+Tech Support	Tech Support Dashboard, Ticket Details, Support Resources	View, update, and close tickets; access support resources.
+Teaching	Manage Classes, Manage Recordings	Create, update, and delete classes; upload class recordings.
+Community Outreach	Manage Events, Manage Blog Posts, Manage Newsletters	Create and update events, blog posts, and newsletters.
+Purchasing and Procurement	Manage Donations, Manage Inventory	Add, update, and track inventory and donations.
+Device Repair	Manage Inventory, Manage Repair Logs	Log device repairs and update inventory.
+Fundraising	Manage Fundraising Activities, Manage Grants	Plan and update fundraising activities and grant applications.
+Web Development	Manage Blog Posts, Manage Resources, Manage Accessibility Requests	Manage website resources and ensure accessibility compliance.
+Event Planning	Manage Events, Assign Volunteers	Plan events and assign roles to volunteers.
+Translation	Manage Translations	Track translation progress and update statuses.
+Communications	Manage Social Media Posts, Manage Newsletters	Create and update communications materials.
+Inventory Management	Manage Devices, Manage Donations, Manage Internal Inventory	Track and update all inventory-related data.
+Admin	All Pages	Full access to all data, configuration, and management.
+
+
+1. Tech Support
+
+    Permissions:
+        Manage and update tickets, add notes, and access resources for tech issues.
+    Relevant Pages:
+        My Tickets (view and update assigned tickets).
+        Ticket Details (add notes).
+        Manage Support Resources (read-only access to resources).
+
+2. Teaching
+
+    Permissions:
+        Access and update class-related content.
+    Relevant Pages:
+        Manage Classes (add, update, and delete classes).
+        Manage Resources (upload class-related resources, e.g., recordings).
+        Volunteer Profile (update personal info).
+
+3. Community Outreach
+
+    Permissions:
+        Manage events and external-facing communication like newsletters and blog posts.
+    Relevant Pages:
+        Manage Events (view and manage community events).
+        Manage Blog Posts (create and edit outreach posts).
+        Manage Newsletters (create and send newsletters).
+
+4. Purchasing and Procurement
+
+    Permissions:
+        Track inventory, devices, and repair logs, and manage donations.
+    Relevant Pages:
+        Manage Donations (track received donations).
+        Manage Devices (track inventory and repair logs).
+        Manage Tags (categorize devices and donations).
+
+5. Device Refurbishment and Repair
+
+    Permissions:
+        Update and log repairs, manage device inventory.
+    Relevant Pages:
+        Manage Devices (add, update, or delete devices).
+        Manage Repair Logs (update logs for repaired devices).
+
+6. Fundraising and Grant Writing
+
+    Permissions:
+        Manage donations, fundraising activities, and grants.
+    Relevant Pages:
+        Manage Donations (add, track, and categorize donations).
+        Manage Fundraising Activities (add and update fundraising efforts).
+        Manage Grants (track and manage grant applications).
+
+7. Web Development and Content Management
+
+    Permissions:
+        Manage website content and resources, including translations and accessibility updates.
+    Relevant Pages:
+        Manage Blog Posts (update website blogs).
+        Manage Resources (upload or update resources).
+        Manage Translations (manage translation status).
+        Manage Accessibility Requests (track accessibility updates).
+
+8. Event Planning and Logistics
+
+    Permissions:
+        Organize events and assign volunteers.
+    Relevant Pages:
+        Manage Events (create and edit events).
+        Assign Jobs to Volunteers (for event-related roles).
+        Manage Event Volunteers (associate volunteers with events).
+
+9. Translation and Accessibility Services
+
+    Permissions:
+        Track and manage translation and accessibility tasks.
+    Relevant Pages:
+        Manage Translations (track translation progress).
+        Manage Accessibility Requests (track accessibility updates).
+
+10. Communications and Social Media
+
+    Permissions:
+        Manage external communication via social media posts and newsletters.
+    Relevant Pages:
+        Manage Social Media Posts (create and edit posts).
+        Manage Newsletters (create and send newsletters).
+        Manage Tags (categorize posts).
+
+11. Inventory and Resource Management
+
+    Permissions:
+        Track, manage, and assign inventory and internal resources.
+    Relevant Pages:
+        Manage Devices (add, update, and categorize devices).
+        Manage Donations (track inventory donations).
+        Manage Internal Inventory (track and update internal inventory).
+        Manage Tags (categorize inventory items).
+
+RBAC Summary Table
+Role	Pages Allowed
+Tech Support	My Tickets, Ticket Details, Manage Support Resources
+Teaching	Manage Classes, Manage Resources, Volunteer Profile
+Community Outreach	Manage Events, Manage Blog Posts, Manage Newsletters
+Purchasing and Procurement	Manage Donations, Manage Devices, Manage Tags
+Device Refurbishment and Repair	Manage Devices, Manage Repair Logs
+Fundraising and Grant Writing	Manage Donations, Manage Fundraising Activities, Manage Grants
+Web Dev. & Content Mgmt.	Manage Blog Posts, Manage Resources, Manage Translations, Manage Accessibility Requests
+Event Planning and Logistics	Manage Events, Assign Jobs to Volunteers, Manage Event Volunteers
+Translation & Accessibility	Manage Translations, Manage Accessibility Requests
+Communications & Social Media	Manage Social Media Posts, Manage Newsletters, Manage Tags
+Inventory & Resource Mgmt.	Manage Devices, Manage Donations, Manage Internal Inventory, Manage Tags
