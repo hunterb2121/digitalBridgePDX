@@ -183,6 +183,23 @@ CREATE TABLE IF NOT EXISTS classes (
     description TEXT NOT NULL
 );
 
+-- Hold information to mark an class as an event to make it easier to display a class schedule
+CREATE TABLE IF NOT EXISTS class_schedule (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    event_id BIGINT NOT NULL REFERENCES events (id) ON DELETE CASCADE,
+    class_id BIGINT NOT NULL REFERENCES classes (id) ON DELETE CASCADE,
+    UNIQUE (event_id, class_id)
+);
+
+-- Hold information for people that are going to be attending a specific class
+CREATE TABLE IF NOT EXISTS class_registration (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    schedule_id BIGINT NOT NULL REFERENCES class_schedule (id) ON DELETE CASCADE,
+    name VARCHAR NOT NULL,
+    email VARCHAR NOT NULL,
+    phone_number VARCHAR
+);
+
 -- Hold information for the volunteers
 CREATE TABLE IF NOT EXISTS volunteers (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -192,7 +209,6 @@ CREATE TABLE IF NOT EXISTS volunteers (
     password_hash VARCHAR NOT NULL,
     availability VARCHAR NOT NULL,
     availability_notes TEXT,
-    skills VARCHAR [],
     volunteer_since DATE NOT NULL DEFAULT CURRENT_DATE
 );
 
@@ -202,6 +218,14 @@ CREATE TABLE IF NOT EXISTS volunteers_assigned_jobs (
     job_id BIGINT NOT NULL REFERENCES volunteer_jobs (id) ON DELETE CASCADE,
     assigned_date DATE NOT NULL DEFAULT CURRENT_DATE,
     PRIMARY KEY (volunteer_id, job_id)
+);
+
+-- Hold skills for different volunteers
+CREATE TABLE IF NOT EXISTS volunteers_skills (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    volunteer_id BIGINT NOT NULL REFERENCES volunteers (id) ON DELETE CASCADE,
+    skill_name VARCHAR NOT NULL,
+    proficiency_level VARCHAR NOT NULL
 );
 
 -- Hold the different RBAC roles for the website
@@ -347,6 +371,15 @@ CREATE TABLE IF NOT EXISTS grants (
     amount_awarded NUMERIC(10, 2)
 );
 
+-- Track progress of grants
+CREATE TABLE IF NOT EXISTS grant_progress (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    grant_id BIGINT NOT NULL REFERENCES grants (id) ON DELETE CASCADE,
+    milestone VARCHAR NOT NULL,
+    progress_notes TEXT,
+    milestone_date DATE NOT NULL DEFAULT CURRENT_DATE
+);
+
 -- Hold information for the different fundraising activities we are holding
 CREATE TABLE IF NOT EXISTS fundraising_activities (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -356,6 +389,23 @@ CREATE TABLE IF NOT EXISTS fundraising_activities (
     funds_raised NUMERIC(10, 2) NOT NULL DEFAULT 0.00,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL
+);
+
+-- Hold information for people that gave money for a fundraising event
+CREATE TABLE IF NOT EXISTS fundraising_contributions (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    activity_id BIGINT REFERENCES fundraising_activities (id) ON DELETE SET NULL,
+    contributor_name VARCHAR NOT NULL,
+    contributor_email VARCHAR,
+    contribution_amount NUMERIC (10, 2) NOT NULL,
+    contribution_date DATE NOT NULL DEFAULT CURRENT_DATE
+);
+
+-- Track volunteers working on a fundraising event
+CREATE TABLE IF NOT EXISTS fundraising_volunteers (
+    activity_id BIGINT NOT NULL REFERENCES fundraising_activities (id) ON DELETE CASCADE,
+    volunteer_id BIGINT NOT NULL REFERENCES volunteers (id) ON DELETE CASCADE,
+    PRIMARY KEY (activity_id, volunteer_id)
 );
 
 -- Hold the content for different social media posts

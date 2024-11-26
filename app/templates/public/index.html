@@ -7,14 +7,15 @@
 
 {% block main %}
     <section id="hero">
-        <img id="hero-image" src="#" alt="Hero image showing">
-        <h1>Bridging Portland's Digital Divide Together</h1>
-        <p>Portland Digital Bridge Network is a volunteer-led mutual aid network dedicated to bridging the digital divide in Portland, Oregon. We’re not a nonprofit or for-profit business — we’re a community of neighbors providing free tech support, tech classes, and aid for those needing technology, all without profit motives, hierarchy, or bureaucracy.</p>
-        <div id="hero-buttons">
-            <a class="hero-button" href="{{ url_for('public.tech_support') }}">Get Tech Support</a>
-            <a class="hero-button" href="{{ url_for('public.classes') }}">Check Out Classes</a>
-            <a class="hero-button" href="{{ url_for('public.aid_fund_donations') }}">Apply for Aid or Donate</a>
-            <a class="hero-button" href="{{ url_for('public.get_involved') }}">Volunteer</a>
+        <div id="hero-text">
+            <h1>Bridging Portland's Digital Divide Together</h1>
+            <p>Portland Digital Bridge Network is a volunteer-led mutual aid network dedicated to bridging the digital divide in Portland, Oregon. We’re not a nonprofit or for-profit business — we’re a community of neighbors providing free tech support, tech classes, and aid for those needing technology, all without profit motives, hierarchy, or bureaucracy.</p>
+            <div id="hero-buttons">
+                <a class="hero-button" href="{{ url_for('public.tech_support') }}">Get Tech Support</a>
+                <a class="hero-button" href="{{ url_for('public.classes') }}">Check Out Classes</a>
+                <a class="hero-button" href="{{ url_for('public.aid_fund_donations') }}">Apply for Aid or Donate</a>
+                <a class="hero-button" href="{{ url_for('public.get_involved') }}">Volunteer</a>
+            </div>
         </div>
     </section>
 

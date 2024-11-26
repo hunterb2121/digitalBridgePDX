@@ -331,15 +331,145 @@ Admin	All Pages	Full access to all data, configuration, and management.
         Manage Tags (categorize inventory items).
 
 RBAC Summary Table
-Role	Pages Allowed
-Tech Support	My Tickets, Ticket Details, Manage Support Resources
-Teaching	Manage Classes, Manage Resources, Volunteer Profile
-Community Outreach	Manage Events, Manage Blog Posts, Manage Newsletters
-Purchasing and Procurement	Manage Donations, Manage Devices, Manage Tags
+Role	                        Pages Allowed
+Tech Support	                My Tickets, Ticket Details, Manage Support Resources, Support Requests
+Teaching	                    Manage Classes, Manage Resources, Volunteer Profile
+Community Outreach	            Manage Events, Manage Blog Posts, Manage Newsletters
+Purchasing and Procurement	    Manage Donations, Manage Devices, Manage Tags
 Device Refurbishment and Repair	Manage Devices, Manage Repair Logs
 Fundraising and Grant Writing	Manage Donations, Manage Fundraising Activities, Manage Grants
-Web Dev. & Content Mgmt.	Manage Blog Posts, Manage Resources, Manage Translations, Manage Accessibility Requests
+Web Dev. & Content Mgmt.	    Manage Blog Posts, Manage Resources, Manage Translations, Manage Accessibility Requests
 Event Planning and Logistics	Manage Events, Assign Jobs to Volunteers, Manage Event Volunteers
-Translation & Accessibility	Manage Translations, Manage Accessibility Requests
+Translation & Accessibility	    Manage Translations, Manage Accessibility Requests
 Communications & Social Media	Manage Social Media Posts, Manage Newsletters, Manage Tags
-Inventory & Resource Mgmt.	Manage Devices, Manage Donations, Manage Internal Inventory, Manage Tags
+Inventory & Resource Mgmt.	    Manage Devices, Manage Donations, Manage Internal Inventory, Manage Tags
+
+
+
+
+
+
+
+
+Database Tables, Their Routes, and Their Roles:
+1. volunteer_registration and volunteer_interests - store information for volunteer applications and their job interests
+- GET: /volunteer-registration
+-- Get all form submissions
+-- Roles:
+- GET: /volunteer-registration/<id>
+-- Get single form submission 
+-- Roles:
+- POST: /volunteer-registration
+-- Create new volunteer application for someone who called or emailed without submitting a form on the public website
+-- Roles:
+- PUT: /volunteer-registration/<id>
+-- Update volunteer application either with new information for someone that already submitted an application or to update the status of an application
+-- Roles:
+- DELETE: /volunteer-registration/<id>
+-- Delete volunteer application either from an accidentally created one or after a certain amount of time
+-- Roles:
+- GET: /voluteer-interests
+-- Get all volunteer interests
+-- Roles:
+- GET: /volunteer-interests/<volunteer_id>
+-- Get all volunteer interests for single volunteer
+-- Roles:
+- GET: /volunteer-interests/<interest_id>
+-- Get all volunteers for single interest
+-- Roles:
+- POST: /volunteer-interests/<volunteer_id>/<interest_id>
+-- Create a new volunteer interest
+-- Roles:
+- DELETE: /volunteer-interests/<volunteer_id>/<interest_id>
+-- Delete a volunteer interest
+-- Roles:
+3. volunteer_jobs - all the volunteer jobs that are avaiable and that are posted on the website
+- GET: /volunteer-jobs
+-- Get all the jobs available for volunteers
+-- Roles:
+- GET: /volunteer-jobs/<id>
+-- Get information for a single volunteer job
+-- Roles:
+- POST: /volunteer-jobs
+-- Create a new volunteer job
+-- Roles:
+- PUT: /volunteer-jobs/<id>
+-- Update a volunteer job
+-- Roles:
+- DELETE: /volunteer-jobs/<id>
+-- Delete a volunteer job
+-- Roles:
+4. partner_registration - store information for partner applications
+- GET: /partner-registration
+-- Get all partner applications
+-- Roles:
+- GET: /partner-registration/<id>
+-- Get information for a single partner application
+-- Roles:
+- POST: /partner-registration
+-- Create new partner application for a business that didn't use the form and emailed or called instead 
+-- Roles:
+- PUT: /partner-registration/<id>
+-- Update partner application either with new information for a business that already submitted an application or to update the status of an application
+-- Roles:
+- DELETE: /partner-registration/<id>
+-- Delete partner application either from an accidentally created one or after a certain amount of time
+-- Roles:
+5. general_form - store information for general support forms from public website
+- GET: /general-form
+-- Get all general forms
+-- Roles:
+- Get: /general-form/<id>
+-- Get information for a single general form entry
+-- Roles:
+- PUT: /general-form/<id>
+-- Update general form request status
+-- Roles:
+6. get_support_form and get_support_times - store information for tech support requests that haven't had tickets created for them yet
+- GET: /tech-support-form
+-- Get all support forms
+-- Roles:
+- GET: /tech-support-form/<id>
+-- Get a single support form
+-- Roles:
+- POST: /tech-support-form
+-- Create a new support request before it gets turned into a ticket
+-- Roles:
+- PUT: /tech-support-form/<id>
+-- Update a tech support request form
+-- Roles:
+- DELETE: /tech-support-form/<id>
+-- Delete a tech support request
+-- Roles:
+7. new_class_request_form - store information for new class request forms from public website
+- GET: /new-class-request
+-- Get all class request forms
+-- Roles:
+- GET: /new-class-request/<id>
+-- Get a single class request
+-- Roles:
+- POST: /new-class-request
+-- Create a new class request
+-- Roles:
+- PUT: /new-class-request/<id>
+-- Update a new class request
+-- Roles:
+- DELETE: /new-class-request/<id>
+-- Delete a class request
+-- Roles:
+8. need_aid_form - store information for a person who needs mutual aid
+- GET: /need-aid-form
+-- Get all requests for aid
+-- Roles:
+- GET: /need-aid-form/<id>
+-- Get a single request form
+-- Roles:
+- POST: /need-aid-form
+-- Create a request that needs to be added to the queue 
+-- Roles:
+- PUT: /need-aid-form/<id>
+-- Update a request for aid
+-- Roles:
+- DELETE: /need-aid-form/<id>
+-- Delete a request for aid
+-- Roles:

@@ -2,8 +2,161 @@
     box-sizing: border-box;
 }
 
+.responsive-image {
+    width: 100%;
+    height: auto;
+}
+
 .nav-logo {
     width: 100%;
     max-width: 100px;
     height: auto;
+}
+
+#hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/hero-image.jpg");
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+#hero-text {
+    text-align: center;
+    position: absolute;
+    top: 35%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    color: white;
+    width: 45%;
+}
+
+#hero-text h1 {
+    font-size: 1.8rem;
+}
+
+#hero-buttons {
+    margin-top: 3rem;
+}
+
+#hero-buttons a {
+    width: 20%;
+    height: 100%;
+    background-color: #FC2F00;
+    padding: 0.6rem;
+    color: white;
+    text-decoration: none;
+    margin: 1rem 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+#hero-buttons a:hover {
+    font-size: 1.5rem;
+}
+
+#key-services h2 {
+    font-size: 3rem;
+    padding-left: 2rem;
+    padding-top: 2rem;
+    padding: 2rem 0 2rem 2rem;
+}
+
+.photo-tagline-home-service svg {
+    width: 5rem;
+    height: auto;
+    display: inline;
+    margin-left: 3rem;
+}
+
+.photo-tagline-home-service h3 {
+    display: inline;
+    vertical-align: middle;
+    margin-left: 1rem;
+    font-size: 2rem;
+}
+
+.home-service p {
+    margin-left: 4rem;
+    margin-top: 0.6rem;
+    font-size: 1.5rem;
+}
+
+#about-main {
+    display: grid;
+    grid-template-areas: 
+        "heading heading"
+        "mission img1"
+        "img2 story";
+        gap: 1rem;
+}
+
+#about-main h1 {
+    grid-area: heading;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+#about-mission {
+    grid-area: mission;
+}
+
+#about-mission-image {
+    grid-area: img1;
+}
+
+#about-story {
+    grid-area: story;
+}
+
+#about-story-image {
+    grid-area: img2;
+}
+
+.col-text {
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+    justify-content: center;
+}
+
+footer h6 {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.footer-a {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-a p {
+    margin-top: 0;
+    margin-bottom: -0.2rem;
+    margin-left: 2rem;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.footer-a p:last-child {
+    margin-bottom: 1rem;
+}
+
+.footer-a p a {
+    text-decoration: none;
+    color: black;
+}
+
+.footer-a p a:hover {
+    text-decoration: none;
+    color: #FC2F00;
+    font-size: 1rem;
 }

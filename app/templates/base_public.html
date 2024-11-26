@@ -59,13 +59,13 @@
                                 </ul>
                             </li>
                         </ul>
-
+                        <!--
                         <ul class="navbar-nav ms-auto justify-content-end">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('auth.login') }}" aria-current="{{ 'page' if current_page == 'login' else 'false' }}">Volunteer Login</a>
+                                <a class="nav-link" href="{{ url_for('public.index') }}" aria-current="{{ 'page' if current_page == 'login' else 'false' }}">Volunteer Login</a>
                             </li>
                         </ul>
-
+                        -->
                     </div>
 
                 </div>
@@ -79,20 +79,24 @@
         <footer>
             <section id="footer-links">
                 <h6>Links</h6>
-                <a href="{{ url_for('public.index') }}" aria-current="{{ 'page' if current_page == 'index' else 'false' }}">Home</a>
-                <a href="{{ url_for('public.about') }}" aria-current="{{ 'page' if current_page == 'about' else 'false' }}">About</a>
-                <a href="{{ url_for('public.get_involved') }}" aria-current="{{ 'page' if current_page == 'get_involved' else 'false' }}">Get Involved</a>
-                <a href="{{ url_for('public.contact') }}" aria-current="{{ 'page' if current_page == 'contact' else 'false' }}">Contact</a>
-                <a href="{{ url_for('public.tech_support') }}" aria-current="{{ 'page' if current_page == 'tech_support' else 'false' }}">Tech Support</a>
-                <a href="{{ url_for('public.classes') }}" aria-current="{{ 'page' if current_page == 'classes' else 'false' }}">Classes</a>
-                <a href="{{ url_for('public.aid_fund_donations') }}" aria-current="{{ 'page' if current_page == 'aid_fund_donations' else 'false' }}">Aid Fund & Donations</a>
-                <a href="{{ url_for('public.resources') }}" aria-current="{{ 'page' if current_page == 'resources' else 'false' }}">Resources</a>
+                <div class="footer-a">
+                    <p><a href="{{ url_for('public.index') }}" aria-current="{{ 'page' if current_page == 'index' else 'false' }}">Home</a></p>
+                    <p><a href="{{ url_for('public.about') }}" aria-current="{{ 'page' if current_page == 'about' else 'false' }}">About</a></p>
+                    <p><a href="{{ url_for('public.get_involved') }}" aria-current="{{ 'page' if current_page == 'get_involved' else 'false' }}">Get Involved</a></p>
+                    <p><a href="{{ url_for('public.contact') }}" aria-current="{{ 'page' if current_page == 'contact' else 'false' }}">Contact</a></p>
+                    <p><a href="{{ url_for('public.tech_support') }}" aria-current="{{ 'page' if current_page == 'tech_support' else 'false' }}">Tech Support</a></p>
+                    <p><a href="{{ url_for('public.classes') }}" aria-current="{{ 'page' if current_page == 'classes' else 'false' }}">Classes</a></p>
+                    <p><a href="{{ url_for('public.aid_fund_donations') }}" aria-current="{{ 'page' if current_page == 'aid_fund_donations' else 'false' }}">Aid Fund & Donations</a></p>
+                    <p><a href="{{ url_for('public.resources') }}" aria-current="{{ 'page' if current_page == 'resources' else 'false' }}">Resources</a></p>
+                </div>
             </section>
 
             <section id="footer-contact">
                 <h6>Contact Us</h6>
-                <a href="mailto:digitalbridgepdx@google.com">digitalbridgepdx@google.com</a>
-                <a href="tel:5038938949">503-893-8949</a>
+                <div class="footer-a">
+                    <p><a href="mailto:digitalbridgepdx@google.com">digitalbridgepdx@google.com</a></p>
+                    <p><a href="tel:5038938949">503-893-8949</a></p>
+                </div>
             </section>
         </footer>
 
