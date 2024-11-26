@@ -105,6 +105,7 @@
 
 #about-mission-image {
     grid-area: img1;
+    margin: auto;
 }
 
 #about-story {
@@ -113,11 +114,47 @@
 
 #about-story-image {
     grid-area: img2;
+    margin: auto;
 }
 
 .col-text {
-    margin-left: 2rem;
-    margin-right: 2rem;
+    margin: auto 2rem;
+    vertical-align: middle;
+}
+
+.col-text h2 {
+    text-align: center;
+}
+
+#get-involved-main {
+    display: grid;
+    grid-template-areas: 
+        "header ."
+        "opportunities faq"
+        "volunteer_form faq"
+        "partner partner";
+}
+
+#get-involved-main h1 {
+    margin: 2rem;
+    grid-area: header;
+
+}
+
+#volunteer_opportunities {
+    grid-area: opportunities;
+}
+
+#volunteer_registration_form_section {
+    grid-area: volunteer_form;
+}
+
+#volunteer_faq {
+    grid-area: faq;
+}
+
+#partner_opportunities {
+    grid-area: partner;
 }
 
 footer {
