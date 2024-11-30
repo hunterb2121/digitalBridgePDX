@@ -1,6 +1,6 @@
 {% extends "base_public.html" %}
 
-{% set page_title = "Digital Bridge PDX Free Tech " %}
+{% set page_title = "Digital Bridge PDX Free Tech Support" %}
 {% set page_description = "Do you need help with your computer, phone, or other tech devices but can't afford the places like Geek Squad? Can't get out of the house for any reason to get tech support? We would love to help you out - completely for free." %}
 
 {% set current_page = 'tech_support' %}
@@ -24,7 +24,23 @@
 
         <section id="support_schedule">
             <h2>In Person Tech Support Schedule</h2>
-            <p>Available Session Times Coming Soon</p>
+            {% if support_dates %}
+                <ul>
+                    {% for date in support_dates %}
+                        <li id="support-{{ date[0] }}"><strong>{{ date[1] }}</strong></li>
+                        <ul>
+                            <li>Description: {{ date[2] }}</li>
+                            <li>Date: {{ date[3] }}</li>
+                            <li>Start Time: {{ date[4] }}</li>
+                            <li>End Time: {{ date[6] }}</li>
+                            <li>Location: {{ date[5] }}</li>
+                        </ul>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No in-person tech support sessions scheduled.</p>
+                <p>Please check back soon for future dates!</p>
+            {% endif %}
         </section>
 
         <section id="get_support_form_section">

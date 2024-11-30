@@ -7,7 +7,12 @@ from ...models.GetSupportTimesModel import GetSupportTimesModel
 
 @public_bp.route("/tech-support", methods=["GET", "POST"])
 def tech_support():
+    from ...models.EventsModel import EventsModel
+
     support_form = TechSupportForm()
+
+    tech_support_schedule = EventsModel.get_all_future_tech_support_events()
+
 
     if request.method == "POST":
         if support_form.validate_on_submit():
@@ -48,5 +53,6 @@ def tech_support():
             flash("There was a problem submitting your form. Please check your form input and try again.", "danger")
     return render_template(
         "public/tech_support.html",
-        support_form=support_form
+        support_form=support_form,
+        support_dates = tech_support_schedule
     )

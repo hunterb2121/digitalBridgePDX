@@ -13,7 +13,9 @@ class NeedAidForm(FlaskForm):
 
     name = StringField(
         "Name", 
-        validators=[DataRequired()]
+        validators=[
+            DataRequired()
+        ]
     )
 
     email = EmailField(

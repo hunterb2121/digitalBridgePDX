@@ -6,60 +6,177 @@
 {% set current_page = 'classes' %}
 
 {% block main %}
-    <h1>Tech Classes</h1>
+    <div id="classes-main">
+        <h1>Tech Classes</h1>
 
-    <section id="class_calendar">
-        <h2>Class Calendar</h2>
-        <p>Class Calendar coming soon!</p>
-    </section>
+        <section id="class_description">
+            <h2>Class Descriptions</h2>
+            {% if class_list %}
+                {% for class in class_list %}
+                    <div id="class-{{ class[0] }}" class="class-description-block">
+                        <h3>{{ class[1] }}</h3>
+                        <p>{{ class[2] }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                    <p>Class descriptions coming soon!</p>
+            {% endif %}
+        </section>
 
-    <section id="class_description">
-        <h2>Class Descriptions</h2>
-        {% if class_list %}
-            {% for class in class_list %}
-                <div id="class-{{ class[0] }}" class="class-description-block">
-                    <h3>{{ class[1] }}</h3>
-                    <p>{{ class[2] }}</p>
-                </div>
-            {% endfor %}
-        {% else %}
-                <p>Class descriptions coming soon!</p>
-        {% endif %}
-    </section>
+        <section id="class_calendar">
+            <h2>Class Calendar</h2>
+            {% if upcoming_classes %}
+                <div id="upcoming_classes_cards">
+                    {% for id, class in upcoming_classes %}
+                        <div class="card" id="upcoming-class-card-{{ id }}">
+                            <h3 class="card-header">{{ class.title }}</h3>
+                            <div class="card-body">
+                                <h4 class="card-title">Date: {{ class.date }}</h4>
+                                <h5 class="card-subtitle">Location: {{ class.location }}</h5>
+                                <p class="card-text">{{ class.description }}</p>
+                                <p class="card-text">Time: {{ class.start_time }}-{{class.end_time }}</p>
+                                <p class="card-text">Seats Available: {{ class.number_seats_left }}/{{ class.number_seats_total }}</p>
+                            </div>
+                            <div class="card-footer">
+                                {% if class.number_seats_left > 0 %}
+                                    <button type="button" class="btn btn-primary register-button" data-schedule-id="{{ class.schedule_id }}" data-event-id="{{ id }}" data-bs-toggle="modal" data-bs-target="#modal-form-{{ id }}">Register</button>
 
-    <section id="class_recordings">
-        <h2>Recent Recordings of Classes</h2>
-        {% if class_recordings %}
-            {% for id, recording in class_recordings.items() %}
-                <div id="class-recording-{{ id }}" class="class_recording">
-                    <h3 class="recording_title">{{ recording.title }}</h3>
-                    <p class="recording_description">{{ recording.description }}</p>
-                    <video class="class_video" width="30%" height="auto" controls>
-                        <source src="{{ recording.file_path }}" type="video/mp4">
-                        I'm sorry! Your browser doesn't support this video.
-                    </video>
-                    <p class="recording_date_recorded">{{ recording.date_recorded.strftime('%B %d, %Y') }}</p>
-                    <p class="recording_duration">Video Duration: {{ recording.duration }}</p>
-                    {% for tag in recording.tags %}
-                        <p class="recording_tag">{{ tag }}</p>
+                                    <div class="modal fade" id="modal-form-{{ id }}" tabindex="-1" aria-labelledby="modal-label-{{ id }}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h2 class="modal-title" id="modal-label-{{ id }}">Register for {{ class.title }}</h2>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <form id="register_class_form_{{ id }}" class="register-class-form" method="post" action="{{ url_for('public.classes') }}">
+                                                    {{ registration_form.hidden_tag() }}
+                                                    {{ registration_form.identifier }}
+                                                    {{ registration_form.schedule_id }}
+                                                    <div class="modal-body">
+                                                        <div class="form-row">
+                                                            <div class="form-label">
+                                                                {{ registration_form.name.label }}<span class="required_input_indicator">*</span>:
+                                                            </div> 
+                                                            <div class="form-field">
+                                                                {{ registration_form.name }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-label">
+                                                                {{ registration_form.email.label }}<span class="required_input_indicator">*</span>:
+                                                            </div>
+                                                            <div class="form-field">
+                                                                {{ registration_form.email }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-label">
+                                                                {{ registration_form.phone_number.label }}:
+                                                            </div>
+                                                            <div class="form-field">
+                                                                {{ registration_form.phone_number }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close Without Registering</button>
+                                                        <div class="form-submit">
+                                                            {{ registration_form.submit }}
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <p class="card-text">Class is Full! You can check out the recording of the class a couple days after the class. Don't worry, though! This class will happen again soon!</p>
+                                {% endif %}
+                            </div>
+                        </div>
                     {% endfor %}
                 </div>
-            {% endfor %}
-        {% else %}
-            <p>Class recordings coming soon!</p>
-        {% endif %}
-    </section>
+            {% else %}
+                <p>No classes scheduled right now.</p>
+                <p>Check back soon for an updated class schedule.</p>
+            {% endif %}
+        </section>
 
-    <section id="class_idea_form">
-        <h3>Ideas for New Classes</h3>
-        <p>Are you interested in learning something that we aren't teaching yet? Submit your request below, and we will work to make it happen.</p>
-        <form id="class_idea_form" method="post" action="{{ url_for('public.classes') }}">
-            {{ request_form.hidden_tag() }}
-            {{ request_form.name.label }}<span class="required_input_indicator">*</span>: {{ request_form.name }}
-            {{ request_form.email.label }}<span class="required_input_indicator">*</span>: {{ request_form.name }}
-            {{ request_form.phone_number.label }}: {{ request_form.phone_number }}
-            {{ request_form.class_idea.label }}<span class="required_input_indicator">*</span>: {{ request_form.class_idea }}
-            {{ request_form.submit }}
-        </form>
-    </section>
+        <section id="class_idea_form">
+            <h3>Ideas for New Classes</h3>
+            <p>Are you interested in learning something that we aren't teaching yet? Submit your request below, and we will work to make it happen.</p>
+            <form id="class_idea_form" method="post" action="{{ url_for('public.classes') }}">
+                {{ request_form.hidden_tag() }}
+                {{ request_form.indicator }}
+                <div class="form-row">
+                    <div class="form-label">
+                        {{ request_form.name.label }}<span class="required_input_indicator">*</span>:
+                    </div>
+                    <div class="form-field">
+                        {{ request_form.name }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        {{ request_form.email.label }}<span class="required_input_indicator">*</span>:
+                    </div>
+                    <div class="form-field">
+                        {{ request_form.name }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        {{ request_form.phone_number.label }}:
+                    </div>
+                    <div class="form-field">
+                        {{ request_form.phone_number }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        {{ request_form.class_idea.label }}<span class="required_input_indicator">*</span>:
+                    </div>
+                    <div class="form-field">
+                        {{ request_form.class_idea }}
+                    </div>
+                </div>
+                <div class="form-submit">
+                    {{ request_form.submit }}
+                </div>
+            </form>
+        </section>
+
+        <section id="class_recordings">
+            <h2>Recent Recordings of Classes</h2>
+            {% if class_recordings %}
+                {% for id, recording in class_recordings.items() %}
+                    <div id="class-recording-{{ id }}" class="class_recording">
+                        <h3 class="recording_title">{{ recording.title }}</h3>
+                        <p class="recording_description">{{ recording.description }}</p>
+                        <video class="class_video" width="30%" height="auto" controls>
+                            <source src="{{ recording.file_path }}" type="video/mp4">
+                            I'm sorry! Your browser doesn't support this video.
+                        </video>
+                        <p class="recording_date_recorded">{{ recording.date_recorded.strftime('%B %d, %Y') }}</p>
+                        <p class="recording_duration">Video Duration: {{ recording.duration }}</p>
+                        {% for tag in recording.tags %}
+                            <p class="recording_tag">{{ tag }}</p>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Class recordings coming soon!</p>
+            {% endif %}
+        </section>
+    </div>
+
+    <script defer>
+        document.querySelectorAll(".register-button").forEach(button => {
+            button.addEventListener("click", event => {
+                const scheduleId = event.target.dataset.scheduleId;
+                const eventId = event.target.dataset.eventId;
+                const registrationForm = document.querySelector(`#register_class_form_${eventId}`);
+                registrationForm.querySelector("input[name='schedule_id']").value = scheduleId;
+            })
+        });
+    </script>
 {% endblock %}

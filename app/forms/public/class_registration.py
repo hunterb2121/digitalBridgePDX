@@ -1,21 +1,32 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, TelField, TextAreaField, SubmitField, HiddenField
-from wtforms.validators import DataRequired, Email, Regexp, Length
+from wtforms import StringField, EmailField, TelField, SubmitField, HiddenField
+from wtforms.validators import DataRequired, Email, Regexp
 
 
 phone_pattern = r"^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$"
 
 
-class NewClassRequestForm(FlaskForm):
+class ClassRegistrationForm(FlaskForm):
     identifier = HiddenField(
-        default="new_class_request"
+        default="class_registration"
     )
+
+    schedule_id = HiddenField(
+        default=None,
+        validators=[
+            DataRequired(
+                message="Error with submitting your form. Please try again later. If issues persist, please submit a form on our contact page or send us an email at digitalbridgepdx@gmail.com and reference error code: 150"
+            )
+        ]
+    )
+
     name = StringField(
         "Name", 
         validators=[
             DataRequired()
         ]
     )
+
     email = EmailField(
         "Email", 
         validators=[
@@ -25,6 +36,7 @@ class NewClassRequestForm(FlaskForm):
             )
         ]
     )
+
     phone_number = TelField(
         "Phone Number", 
         validators=[
@@ -34,14 +46,6 @@ class NewClassRequestForm(FlaskForm):
             )
         ]
     )
-    class_idea = TextAreaField(
-        "Message", 
-        validators=[
-            DataRequired(), 
-            Length(
-                max=5000, 
-                message="Message must be 5000 characters or less"
-            )
-        ]
-    )
-    submit = SubmitField("Submit")
+
+    submit = SubmitField("Register")
+

@@ -1,3 +1,5 @@
+from datetime import date
+
 from .BaseModel import BaseModel
 
 
@@ -25,7 +27,7 @@ class EventsModel(BaseModel):
     @classmethod
     def find_by_date(cls, date):
         query = f"SELECT * FROM {cls.table} WHERE date = %s"
-        return cls.get_one(query, (date,))
+        return cls.get_all(query, (date,))
     
     @classmethod
     def find_by_location(cls, location):
@@ -40,3 +42,29 @@ class EventsModel(BaseModel):
         
         query = f"SELECT * FROM {cls.table} WHERE {field} LIKE %s"
         return cls.get_all(query, (f"%{keyword}%",))
+    
+    @classmethod
+    def get_all_future_tech_support_events(cls):
+        today = date.today()
+
+        query = f"""
+        SELECT {cls.table}.id, title, description, date, time, location, end_time FROM {cls.table} 
+        INNER JOIN tech_support_schedule ON {cls.table}.id = tech_support_schedule.event_id
+        WHERE date >= %s
+        ORDER BY date ASC
+        """
+        return cls.get_all(query, (today,))
+    
+    @classmethod
+    def get_all_future_classes_with_remaining_seats(cls):
+        today = date.today()
+
+        query = f"""
+        SELECT {cls.table}.id, {cls.table}.title, {cls.table}.description, {cls.table}.date, {cls.table}.time, {cls.table}.location, cs.end_time, cs.number_seats, cs.id, cs.number_seats - COALESCE(COUNT(cr.schedule_id), 0) AS remaining_seats FROM {cls.table}
+        INNER JOIN class_schedule cs ON {cls.table}.id = cs.event_id
+        LEFT JOIN class_registration cr ON cs.id = cr.schedule_id
+        WHERE {cls.table}.date >= %s
+        GROUP BY {cls.table}.id, cs.id
+        ORDER BY {cls.table}.date ASC
+        """
+        return cls.get_all(query, (today,))
