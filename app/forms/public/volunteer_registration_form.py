@@ -7,6 +7,7 @@ from ...models.VolunteerJobsModel import VolunteerJobsModel
 phone_pattern = r"^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$"
 
 jobs = VolunteerJobsModel.get_all_records() or []
+print(f"Volunteer jobs: {jobs}")
 
 
 class VolunteerRegistrationForm(FlaskForm):

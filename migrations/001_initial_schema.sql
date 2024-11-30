@@ -1,13 +1,13 @@
 -- ENUMS for standardizing data
-CREATE TYPE form_status ENUM('pending', 'in review', 'contacted', 'completed', 'unknown', 'N/A');
-CREATE TYPE experience ENUM('0-1', '1-5', '5-10', '10+', 'unknown', 'N/A');
-CREATE TYPE support_type ENUM('in-person', 'in-home', 'over the phone', 'unknown', 'N/A');
-CREATE TYPE aid_needs ENUM('computer', 'cell phone', 'tablet', 'bills', 'other', 'unknown', 'N/A');
-CREATE TYPE income ENUM('less than 30,001', '30,001-58,020', '58,021-94,000', '94,001-153,000', 'greater than 153,000', 'unknown', 'N/A');
-CREATE TYPE donating ENUM('computer', 'cell phone', 'tablet', 'other device', 'money', 'unknown', 'N/A');
-CREATE TYPE donation_status ENUM('pending', 'received', 'distributed', 'unknown', 'N/A');
-CREATE TYPE device_condition ENUM('new', 'like new', 'good', 'needs repair', 'unknown', 'N/A');
-CREATE TYPE device_status ENUM('in use', 'in storage', 'out for repair', 'unknown', 'N/A');
+CREATE TYPE form_status AS ENUM ('pending', 'in review', 'contacted', 'completed', 'unknown', 'N/A');
+CREATE TYPE experience AS ENUM ('0-1', '1-5', '5-10', '10+', 'unknown', 'N/A');
+CREATE TYPE support_type AS ENUM ('in-person', 'in-home', 'over the phone', 'unknown', 'N/A');
+CREATE TYPE aid_needs AS ENUM ('computer', 'cell phone', 'tablet', 'bills', 'other', 'unknown', 'N/A');
+CREATE TYPE income AS ENUM ('less than 30,001', '30,001-58,020', '58,021-94,000', '94,001-153,000', 'greater than 153,000', 'unknown', 'N/A');
+CREATE TYPE donating AS ENUM ('computer', 'cell phone', 'tablet', 'other device', 'money', 'unknown', 'N/A');
+CREATE TYPE donation_status AS ENUM ('pending', 'received', 'distributed', 'unknown', 'N/A');
+CREATE TYPE device_condition AS ENUM ('new', 'like new', 'good', 'needs repair', 'unknown', 'N/A');
+CREATE TYPE device_status AS ENUM ('in use', 'in storage', 'out for repair', 'unknown', 'N/A');
 
 -- Volunteer Registration Form
 CREATE TABLE IF NOT EXISTS volunteer_registration (
@@ -23,18 +23,18 @@ CREATE TABLE IF NOT EXISTS volunteer_registration (
     submitted_date DATE NOT NULL DEFAULT CURRENT_DATE
 );
 
--- Apply chosen volunteer jobs that were marked in the volunteer registration form
-CREATE TABLE IF NOT EXISTS volunteer_interests (
-    volunteer_id BIGINT NOT NULL REFERENCES volunteer_registration (id) ON DELETE CASCADE,
-    interest_id BIGINT NOT NULL REFERENCES volunteer_jobs (id) ON DELETE CASCADE,
-    PRIMARY KEY (volunteer_id, interest_id)
-);
-
 -- All the volunteer jobs available that are posted on the website
 CREATE TABLE IF NOT EXISTS volunteer_jobs (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR NOT NULL UNIQUE,
     description VARCHAR NOT NULL
+);
+
+-- Apply chosen volunteer jobs that were marked in the volunteer registration form
+CREATE TABLE IF NOT EXISTS volunteer_interests (
+    volunteer_id BIGINT NOT NULL REFERENCES volunteer_registration (id) ON DELETE CASCADE,
+    interest_id BIGINT NOT NULL REFERENCES volunteer_jobs (id) ON DELETE CASCADE,
+    PRIMARY KEY (volunteer_id, interest_id)
 );
 
 -- Partner Registration Form
@@ -258,7 +258,7 @@ CREATE TABLE IF NOT EXISTS volunteers_assignments (
     volunteer_id BIGINT NOT NULL REFERENCES volunteers (id),
     assignment_id BIGINT NOT NULL REFERENCES assignments (id),
     assigned_date DATE NOT NULL DEFAULT CURRENT_DATE,
-    PRIMARY KEY (volunteer_id, assignement_id)
+    PRIMARY KEY (volunteer_id, assignment_id)
 );
 
 -- Assign the different volunteers to different events
@@ -293,7 +293,7 @@ CREATE TABLE IF NOT EXISTS tech_support_tickets (
 );
 
 -- Hold notes for the different tech support tickets to keep track of what has happened on the tech support tickets
-CREATE INDEX IF NOT EXISTS tech_support_notes (
+CREATE TABLE IF NOT EXISTS tech_support_notes (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     request_id BIGINT NOT NULL REFERENCES tech_support_tickets (id) ON DELETE CASCADE,
     note_author BIGINT NOT NULL REFERENCES volunteers (id),
@@ -307,7 +307,7 @@ CREATE TABLE IF NOT EXISTS tech_support_resources (
     title VARCHAR NOT NULL UNIQUE,
     description TEXT NOT NULL,
     file_path VARCHAR NOT NULL,
-    category_id BIGINT REFERENCES support_categories (id),
+    category_id BIGINT REFERENCES tech_support_categories (id),
     created_date DATE NOT NULL DEFAULT CURRENT_DATE
 );
 
@@ -438,8 +438,7 @@ CREATE TABLE IF NOT EXISTS devices (
     value NUMERIC(7,2) NOT NULL,
     current_location VARCHAR NOT NULL,
     repair_needed BOOLEAN NOT NULL,
-    repair_cost_estimate NUMERIC(7,2) DEFAULT 0.00,
-    repair_history BIGINT REFERENCES repair_logs (id)
+    repair_cost_estimate NUMERIC(7,2) DEFAULT 0.00
 );
 
 -- Hold information for repairs that we are working on or have done for the different devices that we have received
@@ -496,6 +495,25 @@ CREATE TABLE IF NOT EXISTS tags (
     name VARCHAR NOT NULL UNIQUE
 );
 
+-- Hold information for blog posts, including the file path (still working out how to best do blog posts)
+CREATE TABLE IF NOT EXISTS blog_posts (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    title VARCHAR NOT NULL,
+    author_id BIGINT NOT NULL REFERENCES volunteers (id) ON DELETE SET NULL,
+    file_path VARCHAR NOT NULL,
+    published_date TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_published BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+-- Hold information for newsletters
+CREATE TABLE IF NOT EXISTS newsletters (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    title VARCHAR NOT NULL,
+    issue_number INTEGER UNIQUE NOT NULL,
+    file_path VARCHAR NOT NULL,
+    published_date TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Associate tags with specific blog posts
 CREATE TABLE IF NOT EXISTS post_tags (
     post_id BIGINT NOT NULL REFERENCES blog_posts (id) ON DELETE CASCADE,
@@ -515,25 +533,6 @@ CREATE TABLE IF NOT EXISTS class_tags (
     class_id BIGINT NOT NULL REFERENCES class_recordings (id) ON DELETE CASCADE,
     tag_id BIGINT NOT NULL REFERENCES tags (id) ON DELETE CASCADE,
     PRIMARY KEY (class_id, tag_id)
-);
-
--- Hold information for blog posts, including the file path (still working out how to best do blog posts)
-CREATE TABLE IF NOT EXISTS blog_posts (
-    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    title VARCHAR NOT NULL,
-    author_id BIGINT NOT NULL REFERENCES volunteers (id) ON DELETE SET NULL,
-    file_path VARCHAR NOT NULL,
-    published_date TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    is_published BOOLEAN NOT NULL DEFAULT FALSE
-);
-
--- Hold information for newsletters
-CREATE TABLE IF NOT EXISTS newsletters (
-    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    title VARCHAR NOT NULL,
-    issue_number INTEGER UNIQUE NOT NULL,
-    file_path VARCHAR NOT NULL,
-    published_date TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX volunteer_registration_name_idx ON volunteer_registration (name);
@@ -591,15 +590,11 @@ CREATE INDEX accessibility_requests_request_type_idx ON accessibility_requests (
 CREATE INDEX accessibility_requests_request_date_idx ON accessibility_requests (request_date);
 
 CREATE INDEX classes_title_idx ON classes (title);
-CREATE INDEX classes_date_idx ON classes (date);
-CREATE INDEX classes_location_idx ON classes (location);
 
 CREATE INDEX volunteers_name_idx ON volunteers (name);
 CREATE INDEX volunteers_email_idx ON volunteers (email);
 
 CREATE INDEX site_roles_title_idx ON site_roles (title);
-
-CREATE INDEX volunteer_assignments_task_type_idx ON volunteer_assignments (task_type);
 
 CREATE INDEX volunteers_assignments_volunteer_id_idx ON volunteers_assignments (volunteer_id);
 CREATE INDEX volunteers_assignments_assignment_id_idx ON volunteers_assignments (assignment_id);

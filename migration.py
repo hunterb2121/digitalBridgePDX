@@ -1,5 +1,8 @@
 import os
-from app.utils.db import get_connection
+from app.utils.db import initialize_pool, get_connection
+
+
+initialize_pool()
 
 
 def create_migrations_table():
@@ -109,3 +112,31 @@ def rollback(filename):
             print(f"Error during rollback of {filename}: {e}")
     else:
         print(f"No rollback SQL provided for {filename}. Manual intervention may be required.")
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Run or rollback migrations.")
+    parser.add_argument(
+        "--run", 
+        action="store_true", 
+        help="Run all pending migrations."
+    )
+    parser.add_argument(
+        "--rollback",
+        metavar="FILENAME",
+        help="Rollback a specific migration by filename."
+    )
+    args = parser.parse_args()
+
+    create_migrations_table()
+
+    if args.run:
+        print("Running migrations...")
+        run_migrations()
+    elif args.rollback:
+        print(f"Rolling back migration: {args.rollback}")
+        rollback(args.rollback)
+    else:
+        print("No valid arguments provided. Use --help for options.")

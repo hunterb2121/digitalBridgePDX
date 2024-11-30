@@ -5,12 +5,10 @@ from flask_wtf.csrf import CSRFProtect
 import os
 import redis
 
-from .routes import register_blueprints
-
 
 def create_app():
+    print("Creating Flask app...")
     app = Flask(__name__)
-
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "temp-secret-key-01")
     """
     app.config["SESSION_TYPE"] = "redis"
@@ -26,6 +24,8 @@ def create_app():
     csrf = CSRFProtect(app)
     csrf.init_app(app)
 
+    print("Registering blueprints...")
+    from .routes import register_blueprints
     register_blueprints(app)
 
     return app

@@ -6,219 +6,252 @@
 {% set current_page = 'tech_support' %}
 
 {% block main %}
-    <h1>Get Tech Support</h1>
+    <div id="tech-support-main">
+        <h1>Get Tech Support</h1>
 
-    <section id="tech_support_how_to">
-        <h2>How to Get Support</h2>
-        <p>We offer a few different ways to get support with your tech.</p>
-        <ul>
-            <li>In-Person</li>
-            <p>Get in person support during our drop-in hours. We regularly post updated times and locations for where we have our drop-in tech support. We try to have at least two a month. We prefer if you let us know before hand if you're coming, but if that's not possible, we are happy to help if you just drop by.</p>
-            <li>In-Home</li>
-            <p>Get in home support if you aren't able to get to a in person drop-in. If your network isn't working, your desktop is too big to lug around, or you're just unable to make it due to a disability or unreliable transportation, we will work with you to schedule a time for one of our volunteers to come to your home to help out.</p>
-            <li>Over the Phone</li>
-            <p>Have a simple issue that you don't mind getting walked through solving? We are more than happy to get on a phone call with you to troubleshoot your issues.</p>
-        </ul>
-    </section>
+        <section id="tech_support_how_to">
+            <h2>How to Get Support</h2>
+            <p>We offer a few different ways to get support with your tech.</p>
+            <ul>
+                <li>In-Person</li>
+                <p>Get in person support during our drop-in hours. We regularly post updated times and locations for where we have our drop-in tech support. We try to have at least two a month. We prefer if you let us know before hand if you're coming, but if that's not possible, we are happy to help if you just drop by.</p>
+                <li>In-Home</li>
+                <p>Get in home support if you aren't able to get to a in person drop-in. If your network isn't working, your desktop is too big to lug around, or you're just unable to make it due to a disability or unreliable transportation, we will work with you to schedule a time for one of our volunteers to come to your home to help out.</p>
+                <li>Over the Phone</li>
+                <p>Have a simple issue that you don't mind getting walked through solving? We are more than happy to get on a phone call with you to troubleshoot your issues.</p>
+            </ul>
+        </section>
 
-    <section id="support_schedule">
-        <h2>Available Session Times</h2>
-        <p>Available Session Times Coming Soon</p>
-    </section>
+        <section id="support_schedule">
+            <h2>In Person Tech Support Schedule</h2>
+            <p>Available Session Times Coming Soon</p>
+        </section>
 
-    <section id="get_support_form_section">
-        <form id="get_support_form" method="post" action="{{ url_for('public.tech_support') }}">
-            {{ support_form.hidden_tag() }}
-            {{ support_form.name.label }}<span class="required_input_indicator">*</span>: {{ support_form.name }}
-            {{ support_form.email.label }}<span class="required_input_indicator">*</span>: {{ support_form.email }}
-            {{ support_form.phone_number.label }}: {{ support_form.phone_number }}
-            <div>
-                <p>{{ support_form.support_location.label }}<span class="required_input_indicator">*</span></p>
-                <ul>
-                    {% for location_subfield in support_form.support_location %}
-                        <li>
-                            <label for="{{ location_subfield.id }}">
-                                {{ location_subfield }} {{ location_subfield.label.text }}
-                            </label>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div>
-                <p>{{ support_form.preferred_times.label }}<span class="required_input_indicator">*</span></p>
-                <ul>
-                    {% for time_subfield in support_form.preferred_times %}
-                        <li>
-                            <label for="{{ time_subfield.id }}">
-                                {{ time_subfield }} {{ time_subfield.label.text }}
-                            </label>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {{ support_form.message.label }}<span class="required_input_indicator">*</span>: {{ support_form.message }}
-            {{ support_form.submit }}
-        </form>
-    </section>
+        <section id="get_support_form_section">
+            <h2>Contact Us To Get Support</h2>
+            <form id="get_support_form" method="post" action="{{ url_for('public.tech_support') }}">
+                {{ support_form.hidden_tag() }}
+                <div class="form-row">
+                    <div class="form-label">
+                        {{ support_form.name.label }}<span class="required_input_indicator">*</span>:
+                    </div>
+                    <div class="form-field">
+                        {{ support_form.name }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        {{ support_form.email.label }}<span class="required_input_indicator">*</span>:
+                    </div>
+                    <div class="form-field">
+                        {{ support_form.email }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        {{ support_form.phone_number.label }}:
+                    </div>
+                    <div class="form-field">
+                        {{ support_form.phone_number }}
+                    </div>
+                </div>
+                <div>
+                    <p>{{ support_form.support_location.label.text }}<span class="required_input_indicator">*</span></p>
+                    <ul>
+                        {% for location_subfield in support_form.support_location %}
+                            <li class="form-subfield">
+                                <label for="{{ location_subfield.id }}">
+                                    {{ location_subfield }} {{ location_subfield.label.text }}
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <p>{{ support_form.preferred_times.label.text }}<span class="required_input_indicator">*</span></p>
+                    <ul>
+                        {% for time_subfield in support_form.preferred_times %}
+                            <li class="form-subfield">
+                                <label for="{{ time_subfield.id }}">
+                                    {{ time_subfield }} {{ time_subfield.label.text }}
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        {{ support_form.message.label }}<span class="required_input_indicator">*</span>:
+                    </div>
+                    <div class="form-field">
+                        {{ support_form.message }}
+                    </div>
+                </div>
+                <div class="form-submit">
+                    {{ support_form.submit }}
+                </div>
+            </form>
+        </section>
 
-    <section id="tech_support_faq">
-        <h2>Support FAQ</h2>
-        <div class="accordion" id="tech_support_faq_accordion">
-            <div class="accordion-item">
-                <h3 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        What types of tech support does Portland Digital Bridge Network provide?
-                    </button>
-                </h3>
-                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#tech-support-faq-accordion">
-                    <div class="accordion-body">
-                        We offer a wide range of services, including basic software and hardware troubleshooting, virus removal, device and network setup, basic data recovery, hardware repairs (if possible), device tune-ups, data backups and transfers, hardware installation, and more. If you’re unsure whether we can help with your specific issue, please feel free to reach out and ask.
+        <section id="tech_support_faq">
+            <h2>Support FAQ</h2>
+            <div class="accordion" id="tech_support_faq_accordion">
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            What types of tech support does Portland Digital Bridge Network provide?
+                        </button>
+                    </h3>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#tech-support-faq-accordion">
+                        <div class="accordion-body">
+                            We offer a wide range of services, including basic software and hardware troubleshooting, virus removal, device and network setup, basic data recovery, hardware repairs (if possible), device tune-ups, data backups and transfers, hardware installation, and more. If you’re unsure whether we can help with your specific issue, please feel free to reach out and ask.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Is tech support really free?
+                        </button>
+                    </h3>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                        <div class="accordion-body">
+                            Yes! Thanks to our amazing volunteers and community, all our services are 100% free.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            How can I request tech support?
+                        </button>
+                    </h3>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                        <div class="accordion-body">
+                            You can request support by filling out the form above, calling us at <a href="tel:5038938949">503-893-8949</a>, emailing us at <a href="mailto:digitalbridgepdx@gmail.com">digitalbridgepdx@gmail.com</a>, or coming to one of our drop-in sessions. We’ll follow up to get the support you need as quickly as possible.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Do you offer tech support for all types of devices?
+                        </button>
+                    </h3>
+                    <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                        <div class="accordion-body">
+                            We support computers (laptops or desktops), smartphones, tablets, and home networking devices. We don’t typically work on items like gaming consoles or cameras, but if you need help with a unique device, it doesn’t hurt to ask—we may have a volunteer who can assist.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            Can you help with issues like internet connectivity and software installation?
+                        </button>
+                    </h3>
+                    <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                        <div class="accordion-body">
+                            Yes! We’re happy to help with internet setup and troubleshooting, software installation, and software troubleshooting. If we aren’t able to fix something, we’ll do our best to connect you with other reliable support.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            Where is tech support provided?
+                        </button>
+                    </h3>
+                    <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                        <div class="accordion-body">
+                            We hold in-person sessions at locations posted on our website, offer in-home visits for those who can’t travel, and provide remote support by phone or online.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                            How long does it take to receive tech support after making a request?
+                        </button>
+                    </h3>
+                    <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                        <div class="accordion-body">
+                            We aim to respond within 24 hours to start scheduling your support. Depending on volunteer availability and the number of requests, we typically help within a week. For urgent issues, we’ll prioritize and work to assist you sooner.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                            Do I need to bring my device to you?
+                        </button>
+                    </h3>
+                    <div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                        <div class="accordion-body">
+                            Only if you’d like! You’re welcome to bring your device to a drop-in session, or we can arrange an in-home visit or assist remotely by phone.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                            Can I schedule an appointment for tech support?
+                        </button>
+                    </h3>
+                    <div id="collapseNine" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                        <div class="accordion-body">
+                            Absolutely! To schedule an appointment, just call, email, or complete the form above. Once we receive your request, we’ll reach out to confirm a time. Drop-in sessions are also available and posted on this website.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                            What if I need ongoing tech support?
+                        </button>
+                    </h3>
+                    <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                        <div class="accordion-body">
+                            For recurring or ongoing issues, we’ll provide as much support as we can, including scheduling follow-ups if necessary. If we reach a limit to what we can help with, we’ll connect you with other resources for continued support.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                            Do you offer support in multiple languages?
+                        </button>
+                    </h3>
+                    <div id="collapseEleven" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                        <div class="accordion-body">
+                            Our primary language for support is English, but we may have volunteers who speak other languages. Let us know if you need assistance in a different language, and we’ll do our best to accommodate or use translation tools to help.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+                            How can I volunteer to provide tech support?
+                        </button>
+                    </h3>
+                    <div id="collapseTwelve" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
+                        <div class="accordion-body">
+                            If you have tech support experience or a passion for technology, we’d love to hear from you. Fill out the form <a href="{{ url_for('public.get_involved') }}">here</a> to apply to volunteer. If you’re not ready to provide tech support directly, we can help train you or connect you with other volunteer roles like outreach, purchasing, or tech donations, which are just as essential to our mission.
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="accordion-item">
-                <h3 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Is tech support really free?
-                    </button>
-                </h3>
-                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
-                    <div class="accordion-body">
-                        Yes! Thanks to our amazing volunteers and community, all our services are 100% free.
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <h3 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        How can I request tech support?
-                    </button>
-                </h3>
-                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
-                    <div class="accordion-body">
-                        You can request support by filling out the form above, calling us at <a href="tel:5038938949">503-893-8949</a>, emailing us at <a href="mailto:digitalbridgepdx@gmail.com">digitalbridgepdx@gmail.com</a>, or coming to one of our drop-in sessions. We’ll follow up to get the support you need as quickly as possible.
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <h3 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                        Do you offer tech support for all types of devices?
-                    </button>
-                </h3>
-                <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
-                    <div class="accordion-body">
-                        We support computers (laptops or desktops), smartphones, tablets, and home networking devices. We don’t typically work on items like gaming consoles or cameras, but if you need help with a unique device, it doesn’t hurt to ask—we may have a volunteer who can assist.
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <h3 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                        Can you help with issues like internet connectivity and software installation?
-                    </button>
-                </h3>
-                <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
-                    <div class="accordion-body">
-                        Yes! We’re happy to help with internet setup and troubleshooting, software installation, and software troubleshooting. If we aren’t able to fix something, we’ll do our best to connect you with other reliable support.
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <h3 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                        Where is tech support provided?
-                    </button>
-                </h3>
-                <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
-                    <div class="accordion-body">
-                        We hold in-person sessions at locations posted on our website, offer in-home visits for those who can’t travel, and provide remote support by phone or online.
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <h3 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                        How long does it take to receive tech support after making a request?
-                    </button>
-                </h3>
-                <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
-                    <div class="accordion-body">
-                        We aim to respond within 24 hours to start scheduling your support. Depending on volunteer availability and the number of requests, we typically help within a week. For urgent issues, we’ll prioritize and work to assist you sooner.
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <h3 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                        Do I need to bring my device to you?
-                    </button>
-                </h3>
-                <div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
-                    <div class="accordion-body">
-                        Only if you’d like! You’re welcome to bring your device to a drop-in session, or we can arrange an in-home visit or assist remotely by phone.
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <h3 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
-                        Can I schedule an appointment for tech support?
-                    </button>
-                </h3>
-                <div id="collapseNine" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
-                    <div class="accordion-body">
-                        Absolutely! To schedule an appointment, just call, email, or complete the form above. Once we receive your request, we’ll reach out to confirm a time. Drop-in sessions are also available and posted on this website.
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <h3 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
-                        What if I need ongoing tech support?
-                    </button>
-                </h3>
-                <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
-                    <div class="accordion-body">
-                        For recurring or ongoing issues, we’ll provide as much support as we can, including scheduling follow-ups if necessary. If we reach a limit to what we can help with, we’ll connect you with other resources for continued support.
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <h3 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
-                        Do you offer support in multiple languages?
-                    </button>
-                </h3>
-                <div id="collapseEleven" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
-                    <div class="accordion-body">
-                        Our primary language for support is English, but we may have volunteers who speak other languages. Let us know if you need assistance in a different language, and we’ll do our best to accommodate or use translation tools to help.
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <h3 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
-                        How can I volunteer to provide tech support?
-                    </button>
-                </h3>
-                <div id="collapseTwelve" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
-                    <div class="accordion-body">
-                        If you have tech support experience or a passion for technology, we’d love to hear from you. Fill out the form <a href="{{ url_for('public.get_involved') }}">here</a> to apply to volunteer. If you’re not ready to provide tech support directly, we can help train you or connect you with other volunteer roles like outreach, purchasing, or tech donations, which are just as essential to our mission.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </div>
 {% endblock %}

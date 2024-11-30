@@ -1,25 +1,33 @@
 import os
-import psycopg2
+import psycopg2.pool
+
+
+connection_pool = None
 
 
 def initialize_pool(minconn=1, maxconn=20):
+    print("Running initialize_pool() from app/utils/db.py")
     global connection_pool
     try:
+        print("Attempting to get connection")
         connection_pool = psycopg2.pool.SimpleConnectionPool(
             minconn,
             maxconn,
-            database=os.environ["DB_NAME"],
-            user=os.environ["DB_USER"],
-            password=os.environ["DB_PASS"],
-            host=os.environ["DB_HOST"],
-            port=os.environ["DB_PORT"]
+            database=os.environ.get("DB_NAME_TECHMUTUALAID", "digitalbridgetest"),
+            user=os.environ.get("DB_USER_TECHMUTUALAID", "digitalbridgetest"),
+            password=os.environ.get("DB_PASS_TECHMUTUALAID", "BrP5MQozsePhThr"),
+            host=os.environ.get("DB_HOST_TECHMUTUALAID", "localhost"),
+            port=os.environ.get("DB_PORT_TECHMUTUALAID", "5432")
         )
+        print("Got connection")
     except Exception as e:
         print("Error initializing connection pool:", e)
 
 
 def get_connection():
+    print("Running get_connection() from app/utils/db.py")
     try:
+        print("Getting connection")
         return connection_pool.getconn()
     except Exception as e:
         print("Error getting connection from pool:", e)
@@ -27,16 +35,21 @@ def get_connection():
     
 
 def return_connection(conn):
+    print("Running return_connection(conn) from app/utils/db.py")
     if conn:
+        print("Returning connection")
         connection_pool.putconn(conn)
     
 
 def execute_query(query, parameters):
+    print(f"Running execute_query({query}, {parameters}) from app/utils/db.py")
     conn = get_connection()
     if not conn:
+        print("No connection from get_connection()")
         return None
     
     try:
+        print("Got connection")
         with conn:
             with conn.cursor() as cur:
                 cur.execute(query, parameters if parameters else ())
@@ -51,11 +64,14 @@ def execute_query(query, parameters):
 
 
 def get_all_results(query, parameters):
+    print(f"Running get_all_results({query}, {parameters}) from app/utils/db.py")
     conn = get_connection()
     if not conn:
+        print("No connection from get_connection()")
         return None
     
     try:
+        print("Got connection")
         with conn:
             with conn.cursor() as cur:
                 cur.execute(query, parameters if parameters else ())
@@ -68,11 +84,14 @@ def get_all_results(query, parameters):
 
 
 def get_one_result(query, parameters):
+    print(f"Running get_one_result({query}, {parameters}) from app/utils/db.py")
     conn = get_connection()
     if not conn:
+        print("No connection from get_connection()")
         return None
     
     try:
+        print("Got connection")
         with conn:
             with conn.cursor() as cur:
                 cur.execute(query, parameters if parameters else ())

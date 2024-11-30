@@ -4,12 +4,13 @@ from ...forms.public.volunteer_registration_form import VolunteerRegistrationFor
 from ...forms.public.partner_registration_form import PartnerRegistrationForm
 from ...models.VolunteerRegistrationModel import VolunteerRegistrationModel
 from ...models.VolunteerInterestsModel import VolunteerInterestsModel
-from ...models.VolunteerJobsModel import VolunteerJobsModel
 from ...models.PartnerRegistrationModel import PartnerRegistrationModel
 
 
 @public_bp.route("/get-involved", methods=["GET", "POST"])
 def get_involved():
+    from ...models.VolunteerJobsModel import VolunteerJobsModel
+    
     volunteer_form = VolunteerRegistrationForm()
     partner_form = PartnerRegistrationForm()
 

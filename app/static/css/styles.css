@@ -1,3 +1,8 @@
+/*
+================================================
+                All Pages
+================================================
+*/
 * {
     box-sizing: border-box;
 }
@@ -13,6 +18,53 @@
     height: auto;
 }
 
+footer {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+    justify-content: center;
+}
+
+footer h6 {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.footer-a {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-a p {
+    margin-top: 0;
+    margin-bottom: -0.2rem;
+    margin-left: 2rem;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.footer-a p:last-child {
+    margin-bottom: 1rem;
+}
+
+.footer-a p a {
+    text-decoration: none;
+    color: black;
+}
+
+.footer-a p a:hover {
+    text-decoration: none;
+    color: #FC2F00;
+    font-size: 1rem;
+}
+
+
+/*
+================================================
+                Home Page
+================================================
+*/
 #hero {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/hero-image.jpg");
     height: 100vh;
@@ -43,9 +95,9 @@
 #hero-buttons a {
     width: 20%;
     height: 100%;
-    background-color: #FC2F00;
+    background-color: #FC8771;
     padding: 0.6rem;
-    color: white;
+    color: #1D1D1D;
     text-decoration: none;
     margin: 1rem 0.5rem;
     border-radius: 0.5rem;
@@ -83,6 +135,12 @@
     font-size: 1.5rem;
 }
 
+
+/*
+================================================
+                About Page
+================================================
+*/
 #about-main {
     display: grid;
     grid-template-areas: 
@@ -126,27 +184,61 @@
     text-align: center;
 }
 
+
+/*
+================================================
+            Get Involved Page
+================================================
+*/
 #get-involved-main {
     display: grid;
     grid-template-areas: 
         "header ."
         "opportunities faq"
-        "volunteer_form faq"
-        "partner partner";
+        "partner partner"
+        "volunteer_form partner_form";
 }
 
 #get-involved-main h1 {
     margin: 2rem;
     grid-area: header;
+}
 
+#get-involved-main section {
+    margin: 1rem;
 }
 
 #volunteer_opportunities {
     grid-area: opportunities;
 }
 
-#volunteer_registration_form_section {
+.job-description-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.form-section-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+#volunteer_registration_form_section_wrapper {
     grid-area: volunteer_form;
+}
+
+#volunteer_registration_form_section {
+    width: 70%;
+    margin: 0 auto;
+}
+
+#volunteer_form_subfield_ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#volunteer_form_subfield_ul li {
+    flex: 50%;
 }
 
 #volunteer_faq {
@@ -155,45 +247,178 @@
 
 #partner_opportunities {
     grid-area: partner;
+    display: grid;
+    grid-template-areas: 
+        "header ."
+        "why how"
+        "benefits how";
 }
 
-footer {
-    display: flex;
-    flex-direction: row;
-    gap: 4rem;
-    justify-content: center;
+#partner_registration_form_section_wrapper {
+    grid-area: partner_form;
 }
 
-footer h6 {
-    text-align: center;
-    margin-top: 3rem;
+#partner_registration_form_section {
+    width: 50%;
+    margin: 0 auto;
 }
 
-.footer-a {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+#partner_opportunities h2 {
+    grid-area: header;
 }
 
-.footer-a p {
-    margin-top: 0;
-    margin-bottom: -0.2rem;
-    margin-left: 2rem;
-    text-align: left;
-    font-size: 0.9rem;
+#why_partner {
+    grid-area: why;
 }
 
-.footer-a p:last-child {
+#how_to_partner {
+    grid-area: how;
+}
+
+#partner_benefits {
+    grid-area: benefits;
+}
+
+
+/*
+================================================
+                Form Styles
+================================================
+*/
+.form-subfield {
+    list-style-type: none;
+}
+
+.required_input_indicator {
+    color: red;
+    font-size: 1.2rem;
+}
+
+.form-label {
+    margin-bottom: 0 !important;
+}
+
+.form-label label {
+    margin: 0;
+}
+
+.form-field {
     margin-bottom: 1rem;
 }
 
-.footer-a p a {
-    text-decoration: none;
-    color: black;
+.form-field input {
+    margin: 0;
+    width: 25rem;
 }
 
-.footer-a p a:hover {
-    text-decoration: none;
-    color: #FC2F00;
-    font-size: 1rem;
+.form-field textarea {
+    width: 25rem;
+    height: 10rem;
+}
+
+.form-submit input {
+    width: 8rem;
+    background-color: #FC8771;
+    color: #1D1D1D;
+    border: none;
+    padding: 0.6rem;
+    border-radius: 0.5rem;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+.form-submit input:hover {
+    font-size: 1.1rem;
+}
+
+
+/*
+================================================
+                Contact Page
+================================================
+*/
+#contact-main {
+    margin: 1rem;
+    display: grid;
+    grid-template-areas: 
+        "header ."
+        "contact_form get_in_contact";
+}
+
+#contact-main h1 {
+    margin: 2rem;
+    margin-bottom: 4rem;
+    grid-area: header;
+}
+
+#contact-main article {
+    grid-area: contact_form;
+    margin-left: 5rem;
+}
+
+#contact-main aside {
+    grid-area: get_in_contact;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#contact-main aside h2,
+#contact-main aside p {
+    margin-bottom: 2rem;
+}
+
+#contact_icons {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#contact_icons svg {
+    width: 5rem;
+}
+
+#contact_icons svg:hover {
+    width: 6rem;
+}
+
+
+/*
+================================================
+            Tech Support Page
+================================================
+*/
+#tech-support-main {
+    margin: 1rem;
+    display: grid;
+    grid-template-areas: 
+        "header ."
+        "how faq"
+        "schedule faq"
+        "form form";
+}
+
+#tech-support-main h1 {
+    margin: 2rem;
+    grid-area: header;
+}
+
+#tech_support_how_to {
+    grid-area: how;
+    width: 70%;
+}
+
+#support_schedule {
+    grid-area: schedule;
+}
+
+#get_support_form_section {
+    grid-area: form;
+    margin: 2rem auto;
+}
+
+#tech_support_faq {
+    grid-area: faq;
+    width: 100%;
 }

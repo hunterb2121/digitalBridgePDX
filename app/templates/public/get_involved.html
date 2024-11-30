@@ -17,7 +17,7 @@
             <ul>
                 {% if our_jobs %}
                     {% for job in our_jobs %}
-                        <li>{{ job[1] }}</li>
+                        <li class="job-description-name">{{ job[1] }}</li>
                         <p>{{ job[2] }}</p>
                     {% endfor %}
                 {% else %}
@@ -26,21 +26,43 @@
             </ul>
         </section>
 
-        <section id="volunteer_registration_form_section">
+        <div class="form-section-wrapper" id="volunteer_registration_form_section_wrapper">
+            <section id="volunteer_registration_form_section">
             <h2>Interested in volunteering?</h2>
             <p>Fill out this form to apply for a volunteer position. Once we receive your request, we will get back to you within a week to let you know the positions that we have available for you.</p>
             <form id="volunteer_registration_form" method="post" action="{{ url_for('public.get_involved') }}">
                 {{ volunteer_form.hidden_tag() }}
                 {{ volunteer_form.form_type }}
-                {{ volunteer_form.name.label }}<span class="required_input_indicator">*</span>: {{ volunteer_form.name }}
-                {{ volunteer_form.email.label }}<span class="required_input_indicator">*</span>: {{ volunteer_form.email }}
-                {{ volunteer_form.phone_number.label }}: {{ volunteer_form.phone_number }}
+                <div class="form-row">
+                    <div class="form-label">
+                        {{ volunteer_form.name.label }}<span class="required_input_indicator">*</span>:
+                    </div> 
+                    <div class="form-field">
+                        {{ volunteer_form.name }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        {{ volunteer_form.email.label }}<span class="required_input_indicator">*</span>: 
+                    </div>
+                    <div class="form-field">
+                        {{ volunteer_form.email }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        {{ volunteer_form.phone_number.label }}:
+                    </div>
+                    <div class="form-field">
+                        {{ volunteer_form.phone_number }}
+                    </div>
+                </div>
                 {% if our_jobs %}
                     <div>
                         <p>{{ volunteer_form.volunteer_job.label.text }}<span class="required_input_indicator">*</span></p>
-                        <ul>
+                        <ul id="volunteer_form_subfield_ul">
                             {% for volunteer_job_subfield in volunteer_form.volunteer_job %}
-                                <li>
+                                <li class="form-subfield">
                                     <label for="{{ volunteer_job_subfield.id }}">
                                         {{ volunteer_job_subfield }} {{ volunteer_job_subfield.label.text }}
                                     </label>
@@ -49,13 +71,56 @@
                         </ul>
                     </div>
                 {% endif %}
-                {{ volunteer_form.experience_in_it.label }}<span class="required_input_indicator">*</span>: {{ volunteer_form.experience_in_it }}
-                {{ volunteer_form.other_experience.label }}<span class="required_input_indicator">*</span>: {{ volunteer_form.other_experience }}
-                {{ volunteer_form.experience_amount.label }}<span class="required_input_indicator">*</span>: {{ volunteer_form.experience_amount }}
-                {{ volunteer_form.message.label }}: {{ volunteer_form.message }}
-                {{ volunteer_form.submit }}
+                <div>
+                    <p>{{ volunteer_form.experience_in_it.label.text }}<span class="required_input_indicator">*</span>:</p>
+                    <ul>
+                        {% for experience_subfield in volunteer_form.experience_in_it %}
+                            <li class="form-subfield">
+                                <label for="{{ experience_subfield.id }}">
+                                    {{ experience_subfield }} {{ experience_subfield.label.text }}
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <p>{{ volunteer_form.other_experience.label.text }}<span class="required_input_indicator">*</span>:</p>
+                    <ul>
+                        {% for experience_subfield in volunteer_form.other_experience %}
+                            <li class="form-subfield">
+                                <label for="{{ experience_subfield.id }}">
+                                    {{ experience_subfield }} {{ experience_subfield.label.text }}
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <p>{{ volunteer_form.experience_amount.label.text }}<span class="required_input_indicator">*</span>:</p>
+                    <ul>
+                        {% for experience_amount_subfield in volunteer_form.experience_amount %}
+                            <li class="form-subfield">
+                                <label for="{{ experience_amount_subfield.id }}">
+                                    {{ experience_amount_subfield }} {{ experience_amount_subfield.label.text }}
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        {{ volunteer_form.message.label }}: 
+                    </div>
+                    <div class="form-field">
+                        {{ volunteer_form.message }}
+                    </div>
+                </div>
+                <div class="form-submit">
+                    {{ volunteer_form.submit }}
+                </div>
             </form>
-        </section>
+            </section>
+        </div>
 
         <section id="volunteer_faq">
             <h2>FAQ for Volunteers</h2>
@@ -346,19 +411,60 @@
                     <li>There may be opportunities for co-branding on events or initiatives</li>
                 </ul>
             </section>
+        </section>
 
+        <div class="form-section-wrapper" id="partner_registration_form_section_wrapper">
             <section id="partner_registration_form_section">
+                <h3>Interested in Partnering?</h3>
+                <p>Fill out this form to apply for partnership. Once we receive your request, we will get back to you within a week to let you know the positions that we have available for you.</p>
                 <form id="partner_registration_form" method="post" action="{{ url_for('public.get_involved') }}">
                     {{ partner_form.hidden_tag() }}
                     {{ partner_form.form_type }}
-                    {{ partner_form.business_name.label }}<span class="required_input_indicator">*</span>: {{ partner_form.business_name }}
-                    {{ partner_form.contact_name.label }}<span class="required_input_indicator">*</span>: {{ partner_form.contact_name }}
-                    {{ partner_form.email.label }}<span class="required_input_indicator">*</span>: {{ partner_form.email }}
-                    {{ partner_form.phone_number.label }}<span class="required_input_indicator">*</span>: {{ partner_form.phone_number }}
-                    {{ partner_form.message.label }}: {{ partner_form.message }}
-                    {{ partner_form.submit }}
+                    <div class="form-row">
+                        <div class="form-label">
+                            {{ partner_form.business_name.label }}<span class="required_input_indicator">*</span>:
+                        </div>
+                        <div class="form-field">
+                            {{ partner_form.business_name }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-label">
+                            {{ partner_form.contact_name.label }}<span class="required_input_indicator">*</span>:
+                        </div> 
+                        <div class="form-field">
+                            {{ partner_form.contact_name }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-label">
+                            {{ partner_form.email.label }}<span class="required_input_indicator">*</span>:
+                        </div> 
+                        <div class="form-field">
+                            {{ partner_form.email }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-label">
+                            {{ partner_form.phone_number.label }}<span class="required_input_indicator">*</span>: 
+                        </div>
+                        <div class="form-field">
+                            {{ partner_form.phone_number }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-label">
+                            {{ partner_form.message.label }}:
+                        </div> 
+                        <div class="form-field">
+                            {{ partner_form.message }}
+                        </div>
+                    </div>
+                    <div class="form-submit">
+                        {{ partner_form.submit }}
+                    </div>
                 </form>
             </section>
-        </section>
+        </div>
     </div>
 {% endblock %}
