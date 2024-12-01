@@ -27,6 +27,24 @@ nav {
     padding-left: 1rem;
 }
 
+h1 {
+    font-weight: 900 !important;
+}
+
+h2 {
+    font-weight: 800 !important;
+}
+
+h3 {
+    font-weight: 700 !important;
+}
+
+h4,
+h5,
+h6 {
+    font-weight: 600 !important;
+}
+
 footer {
     display: flex;
     flex-direction: row;
@@ -127,6 +145,10 @@ footer {
     font-size: 1.5rem;
 }
 
+#hero-h1 {
+    font-weight: 400 !important;
+}
+
 #hero-buttons {
     margin-top: 3rem;
     display: flex;
@@ -214,6 +236,10 @@ footer {
 }
 
 @media (max-width: 780px) {
+    #hero-text {
+        top: 45%
+    }
+
     #hero-buttons {
         flex-direction: column;
         gap: 2rem;
@@ -225,7 +251,7 @@ footer {
         position: static;
         width: 90%;
         margin: 0 auto;
-        padding-top: 5rem;
+        padding-top: 6rem;
         transform: none;
         text-align: center;
     }
@@ -485,7 +511,7 @@ footer {
 
 /*
 ================================================
-            Get Involved Media Queries
+        Get Involved Media Queries
 ================================================
 */
 @media (max-width: 1200px) {
@@ -623,7 +649,7 @@ footer {
 
 /*
 ================================================
-                Form Media Queries
+            Form Media Queries
 ================================================
 */
 @media (max-width: 450px) {
@@ -706,7 +732,7 @@ footer {
 
 /*
 ================================================
-                Contact Media Queries
+            Contact Media Queries
 ================================================
 */
 @media (max-width: 1250px) {
@@ -843,6 +869,76 @@ footer {
 
 /*
 ================================================
+        Tech Support Media Queries
+================================================
+*/
+@media (max-width: 1230px) {
+    #tech-support-main {
+        display: block;
+        margin: 0.5rem;
+    }
+
+    #tech-support-main h1 {
+        text-align: center;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #support_schedule {
+        margin-left: 0;
+    }
+
+    #get_support_form_section {
+        margin-left: 20rem;
+    }
+
+    #get_support_form {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 1050px) {
+    #get_support_form_section {
+        margin-left: 15rem;
+    }
+}
+
+@media (max-width: 800px) {
+    #get_support_form_section {
+        margin-left: 10rem;
+    }
+}
+
+@media (max-width: 650px) {
+    #get_support_form_section {
+        margin-left: 0;
+    }
+
+    #tech_support_how_to {
+        margin-right: 0;
+        font-size: 1.2rem;
+    }
+
+    #support_schedule {
+        font-size: 1.2rem;
+    }
+
+    #tech_support_faq {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 420px) {
+    #tech_support_how_to ul li:nth-child(2),
+    #tech_support_how_to ul li:nth-child(4),
+    #tech_support_how_to ul li:nth-child(6) {
+        padding-left: 0.5rem;
+    }
+}
+
+
+/*
+================================================
                 Classes Page
 ================================================
 */
@@ -868,8 +964,13 @@ footer {
     font-size: 1.4rem;
 }
 
-#class_idea_form {
+#class_idea_form_section {
     grid-area: idea_form;
+    margin-left: 2rem;
+    font-size: 1.5rem;
+}
+
+#class_idea_form {
     margin-left: 2rem;
     font-size: 1.5rem;
 }
@@ -890,6 +991,68 @@ footer {
 
 /*
 ================================================
+            Classes Media Queries
+================================================
+*/
+@media (max-width: 1000px) {
+    #classes-main {
+        margin: 0.5rem;
+        display: block;
+    }
+
+    #classes-main h1 {
+        text-align: center;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #class_calendar {
+        margin-left: 0;
+        margin-top: 2rem;
+    }
+
+    #class_idea_form_section {
+        margin-top: 2rem;
+        margin-left: 0;
+    }
+    
+    #class_idea_form {
+        margin-left: 1.5rem;
+    }
+
+    #class_recordings {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 650px) {
+    #class_description {
+        margin-right: 0;
+        font-size: 1.2rem;
+    }
+
+    #class_idea_form_section {
+        font-size: 1.2rem;
+    }
+    
+    #class_idea_form {
+        margin-left: 0;
+        font-size: 1.2rem;
+    }
+
+    #class_calendar {
+        font-size: 1.2rem;
+    }
+    
+    #class_recordings {
+        font-size: 1.2rem;
+    }
+}
+
+
+/*
+================================================
             Aid Fund Donation Page
 ================================================
 */
@@ -901,6 +1064,7 @@ footer {
         "how how"
         "need donate";
     grid-template-columns: 1fr 1fr;
+    gap: 1rem;
 }
 
 #aid-fund-donations-main h1 {
@@ -956,6 +1120,67 @@ footer {
 
 /*
 ================================================
+        Aid Fund Donation Media Queries
+================================================
+*/
+@media (max-width: 1000px) {
+    #aid-fund-donations-main {
+        margin: 0.5rem;
+        display: block;
+    }
+
+    #aid-fund-donations-main h1 {
+        margin-left: 0;
+        margin-right: 0;
+        text-align: center;
+    }
+
+    #need_aid_form_section {
+        margin-top: 2rem;
+    }
+    
+    #donate_form_section {
+        margin-left: 2rem;
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 600px) {
+    #how_fund_works {
+        margin: 1rem 0;
+        font-size: 1.2rem;
+    }
+    
+    #how_fund_works h3,
+    #how_fund_works p,
+    #how_fund_works ul,
+    #how_fund_works h4,
+    #how_fund_works ol {
+        margin-left: 0;
+    }
+
+    #need_aid_form_section {
+        margin-left: 0;
+        font-size: 1.2rem;
+    }
+    
+    #donate_form_section {
+        margin-left: 0;
+        font-size: 1.2rem;
+    }
+
+    #need_aid_form {
+        margin-left: 0;
+    }
+    
+    #donate_form {
+        margin-left: 0;
+    }
+}
+
+
+/*
+================================================
                 Resources Page
 ================================================
 */
@@ -992,6 +1217,7 @@ footer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    overflow: hidden;
     gap: 1rem;
 }
 
@@ -1000,6 +1226,49 @@ footer {
     margin-top: 2rem;
     margin-left: 2rem;
     font-size: 1.5rem;
+}
+
+
+/*
+================================================
+            Resources Media Queries
+================================================
+*/
+@media (max-width: 1000px) {
+    #resources-main {
+        margin: 0.5rem;
+        display: block;
+    }
+
+    #resources-main h1 {
+        margin-left: 0;
+        margin-right: 0;
+        text-align: center;
+    }
+    
+    #external_resource_library {
+        margin-left: 2rem;
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 600px) {
+    #internal_resource_library {
+        margin-left: 0;
+        margin-right: 0; 
+        font-size: 1.2rem;
+    }
+    
+    #external_resource_library {
+        margin-left: 0;
+        margin-right: 0;
+        font-size: 1.2rem;
+    }
+
+    #video_library {
+        margin-left: 0;
+        font-size: 1.2rem;
+    }
 }
 
 

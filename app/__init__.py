@@ -15,7 +15,7 @@ def create_app():
     app.config["SESSION_PERMANENT"] = False
     app.config["SESSION_USE_SIGNER"] = True
     app.config["SESSION_KEY_PREFIX"] = "flask-session:"
-    app.config["SESSION_REDIS"] = redis.StrictRedis(host="127.0.0.1", port=6379)
+    app.config["SESSION_REDIS"] = redis.StrictRedis(host=os.getenv("REDIS_HOST"), port=6379)
 
     Session(app)
     login_manager = LoginManager(app)

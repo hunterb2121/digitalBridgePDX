@@ -22,95 +22,6 @@
             </ul>
         </section>
 
-        <section id="support_schedule">
-            <h2>In Person Tech Support Schedule</h2>
-            {% if support_dates %}
-                <ul>
-                    {% for date in support_dates %}
-                        <li id="support-{{ date[0] }}"><strong>{{ date[1] }}</strong></li>
-                        <li>
-                            <ul>
-                                <li>Description: {{ date[2] }}</li>
-                                <li>Date: {{ date[3] }}</li>
-                                <li>Start Time: {{ date[4] }}</li>
-                                <li>End Time: {{ date[6] }}</li>
-                                <li>Location: {{ date[5] }}</li>
-                            </ul>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No in-person tech support sessions scheduled.</p>
-                <p>Please check back soon for future dates!</p>
-            {% endif %}
-        </section>
-
-        <section id="get_support_form_section">
-            <h2>Contact Us To Get Support</h2>
-            <form id="get_support_form" method="post" action="{{ url_for('public.tech_support') }}">
-                {{ support_form.hidden_tag() }}
-                <div class="form-row">
-                    <div class="form-label">
-                        {{ support_form.name.label }}<span class="required_input_indicator">*</span>:
-                    </div>
-                    <div class="form-field">
-                        {{ support_form.name }}
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-label">
-                        {{ support_form.email.label }}<span class="required_input_indicator">*</span>:
-                    </div>
-                    <div class="form-field">
-                        {{ support_form.email }}
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-label">
-                        {{ support_form.phone_number.label }}:
-                    </div>
-                    <div class="form-field">
-                        {{ support_form.phone_number }}
-                    </div>
-                </div>
-                <div>
-                    <p>{{ support_form.support_location.label.text }}<span class="required_input_indicator">*</span></p>
-                    <ul>
-                        {% for location_subfield in support_form.support_location %}
-                            <li class="form-subfield">
-                                <label for="{{ location_subfield.id }}">
-                                    {{ location_subfield }} {{ location_subfield.label.text }}
-                                </label>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div>
-                    <p>{{ support_form.preferred_times.label.text }}<span class="required_input_indicator">*</span></p>
-                    <ul>
-                        {% for time_subfield in support_form.preferred_times %}
-                            <li class="form-subfield">
-                                <label for="{{ time_subfield.id }}">
-                                    {{ time_subfield }} {{ time_subfield.label.text }}
-                                </label>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="form-row">
-                    <div class="form-label">
-                        {{ support_form.message.label }}<span class="required_input_indicator">*</span>:
-                    </div>
-                    <div class="form-field">
-                        {{ support_form.message }}
-                    </div>
-                </div>
-                <div class="form-submit">
-                    {{ support_form.submit }}
-                </div>
-            </form>
-        </section>
-
         <section id="tech_support_faq">
             <h2>Support FAQ</h2>
             <div class="accordion" id="tech_support_faq_accordion">
@@ -270,6 +181,95 @@
                     </div>
                 </div>
             </div>
+        </section>
+
+        <section id="support_schedule">
+            <h2>In Person Tech Support Schedule</h2>
+            {% if support_dates %}
+                <ul>
+                    {% for date in support_dates %}
+                        <li id="support-{{ date[0] }}"><strong>{{ date[1] }}</strong></li>
+                        <li>
+                            <ul>
+                                <li>Description: {{ date[2] }}</li>
+                                <li>Date: {{ date[3] }}</li>
+                                <li>Start Time: {{ date[4] }}</li>
+                                <li>End Time: {{ date[6] }}</li>
+                                <li>Location: {{ date[5] }}</li>
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No in-person tech support sessions scheduled.</p>
+                <p>Please check back soon for future dates!</p>
+            {% endif %}
+        </section>
+
+        <section id="get_support_form_section">
+            <h2>Contact Us To Get Support</h2>
+            <form id="get_support_form" method="post" action="{{ url_for('public.tech_support') }}">
+                {{ support_form.hidden_tag() }}
+                <div class="form-row">
+                    <div class="form-label">
+                        {{ support_form.name.label }}<span class="required_input_indicator">*</span>:
+                    </div>
+                    <div class="form-field">
+                        {{ support_form.name }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        {{ support_form.email.label }}<span class="required_input_indicator">*</span>:
+                    </div>
+                    <div class="form-field">
+                        {{ support_form.email }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        {{ support_form.phone_number.label }}:
+                    </div>
+                    <div class="form-field">
+                        {{ support_form.phone_number }}
+                    </div>
+                </div>
+                <div>
+                    <p>{{ support_form.support_location.label.text }}<span class="required_input_indicator">*</span></p>
+                    <ul>
+                        {% for location_subfield in support_form.support_location %}
+                            <li class="form-subfield">
+                                <label for="{{ location_subfield.id }}">
+                                    {{ location_subfield }} {{ location_subfield.label.text }}
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <p>{{ support_form.preferred_times.label.text }}<span class="required_input_indicator">*</span></p>
+                    <ul>
+                        {% for time_subfield in support_form.preferred_times %}
+                            <li class="form-subfield">
+                                <label for="{{ time_subfield.id }}">
+                                    {{ time_subfield }} {{ time_subfield.label.text }}
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">
+                        {{ support_form.message.label }}<span class="required_input_indicator">*</span>:
+                    </div>
+                    <div class="form-field">
+                        {{ support_form.message }}
+                    </div>
+                </div>
+                <div class="form-submit">
+                    {{ support_form.submit }}
+                </div>
+            </form>
         </section>
     </div>
 {% endblock %}

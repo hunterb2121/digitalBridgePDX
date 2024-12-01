@@ -101,8 +101,8 @@
             {% endif %}
         </section>
 
-        <section id="class_idea_form">
-            <h3>Ideas for New Classes</h3>
+        <section id="class_idea_form_section">
+            <h2>Ideas for New Classes</h2>
             <p>Are you interested in learning something that we aren't teaching yet? Submit your request below, and we will work to make it happen.</p>
             <form id="class_idea_form" method="post" action="{{ url_for('public.classes') }}">
                 {{ request_form.hidden_tag() }}
