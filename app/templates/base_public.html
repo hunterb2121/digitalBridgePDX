@@ -26,7 +26,7 @@
         <header>
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="javascript:void(0);">
+                    <a class="navbar-brand" href="{{ url_for('public.index') }}">
                         <img class="nav-logo" src="../static/assets/logo.png" alt="Portland Digital Bridge Network Logo showing a bridge on a laptop screen the words Portland Digital Bridge Network above it and open hands in the top left corner and a Wi-Fi symbol in the top right corner">
                     </a>
                     <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,24 +78,30 @@
 
         <footer>
             <section id="footer-links">
-                <h6>Links</h6>
+                <p class="footer-head">Links</p>
                 <div class="footer-a">
-                    <p><a href="{{ url_for('public.index') }}" aria-current="{{ 'page' if current_page == 'index' else 'false' }}">Home</a></p>
-                    <p><a href="{{ url_for('public.about') }}" aria-current="{{ 'page' if current_page == 'about' else 'false' }}">About</a></p>
-                    <p><a href="{{ url_for('public.get_involved') }}" aria-current="{{ 'page' if current_page == 'get_involved' else 'false' }}">Get Involved</a></p>
-                    <p><a href="{{ url_for('public.contact') }}" aria-current="{{ 'page' if current_page == 'contact' else 'false' }}">Contact</a></p>
-                    <p><a href="{{ url_for('public.tech_support') }}" aria-current="{{ 'page' if current_page == 'tech_support' else 'false' }}">Tech Support</a></p>
-                    <p><a href="{{ url_for('public.classes') }}" aria-current="{{ 'page' if current_page == 'classes' else 'false' }}">Classes</a></p>
-                    <p><a href="{{ url_for('public.aid_fund_donations') }}" aria-current="{{ 'page' if current_page == 'aid_fund_donations' else 'false' }}">Aid Fund & Donations</a></p>
-                    <p><a href="{{ url_for('public.resources') }}" aria-current="{{ 'page' if current_page == 'resources' else 'false' }}">Resources</a></p>
+                    <div class="footer-col">
+                        <p><a href="{{ url_for('public.index') }}" aria-current="{{ 'page' if current_page == 'index' else 'false' }}">Home</a></p>
+                        <p><a href="{{ url_for('public.about') }}" aria-current="{{ 'page' if current_page == 'about' else 'false' }}">About</a></p>
+                        <p><a href="{{ url_for('public.get_involved') }}" aria-current="{{ 'page' if current_page == 'get_involved' else 'false' }}">Get Involved</a></p>
+                        <p><a href="{{ url_for('public.contact') }}" aria-current="{{ 'page' if current_page == 'contact' else 'false' }}">Contact</a></p>
+                    </div>
+                    <div class="footer-col">
+                        <p><a href="{{ url_for('public.tech_support') }}" aria-current="{{ 'page' if current_page == 'tech_support' else 'false' }}">Tech Support</a></p>
+                        <p><a href="{{ url_for('public.classes') }}" aria-current="{{ 'page' if current_page == 'classes' else 'false' }}">Classes</a></p>
+                        <p><a href="{{ url_for('public.aid_fund_donations') }}" aria-current="{{ 'page' if current_page == 'aid_fund_donations' else 'false' }}">Aid Fund & Donations</a></p>
+                        <p><a href="{{ url_for('public.resources') }}" aria-current="{{ 'page' if current_page == 'resources' else 'false' }}">Resources</a></p>
+                    </div>
                 </div>
             </section>
 
             <section id="footer-contact">
-                <h6>Contact Us</h6>
+                <p class="footer-head">Contact Us</p>
                 <div class="footer-a">
-                    <p><a href="mailto:digitalbridgepdx@google.com">digitalbridgepdx@google.com</a></p>
-                    <p><a href="tel:5038938949">503-893-8949</a></p>
+                    <div class="footer-col">
+                        <p><a href="mailto:digitalbridgepdx@google.com">digitalbridgepdx@google.com</a></p>
+                        <p><a href="tel:5038938949">503-893-8949</a></p>
+                    </div>
                 </div>
             </section>
         </footer>

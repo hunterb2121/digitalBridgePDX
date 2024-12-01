@@ -148,35 +148,28 @@
         <section id="class_recordings">
             <h2>Recent Recordings of Classes</h2>
             {% if class_recordings %}
-                {% for id, recording in class_recordings.items() %}
-                    <div id="class-recording-{{ id }}" class="class_recording">
-                        <h3 class="recording_title">{{ recording.title }}</h3>
-                        <p class="recording_description">{{ recording.description }}</p>
-                        <video class="class_video" width="30%" height="auto" controls>
-                            <source src="{{ recording.file_path }}" type="video/mp4">
-                            I'm sorry! Your browser doesn't support this video.
-                        </video>
-                        <p class="recording_date_recorded">{{ recording.date_recorded.strftime('%B %d, %Y') }}</p>
-                        <p class="recording_duration">Video Duration: {{ recording.duration }}</p>
-                        {% for tag in recording.tags %}
-                            <p class="recording_tag">{{ tag }}</p>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
+                <div id="class-recording-wrapper">
+                    {% for id, recording in class_recordings.items() %}
+                        <div id="class-recording-{{ id }}" class="class_recording">
+                            <h3 class="recording_title">{{ recording.title }}</h3>
+                            <p class="recording_description">{{ recording.description }}</p>
+                            <video class="class_video" width="30%" height="auto" controls>
+                                <source src="{{ recording.file_path }}" type="video/mp4">
+                                I'm sorry! Your browser doesn't support this video.
+                            </video>
+                            <p class="recording_date_recorded">{{ recording.date_recorded.strftime('%B %d, %Y') }}</p>
+                            <p class="recording_duration">Video Duration: {{ recording.duration }}</p>
+                            {% for tag in recording.tags %}
+                                <p class="recording_tag">{{ tag }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
             {% else %}
                 <p>Class recordings coming soon!</p>
             {% endif %}
         </section>
     </div>
 
-    <script defer>
-        document.querySelectorAll(".register-button").forEach(button => {
-            button.addEventListener("click", event => {
-                const scheduleId = event.target.dataset.scheduleId;
-                const eventId = event.target.dataset.eventId;
-                const registrationForm = document.querySelector(`#register_class_form_${eventId}`);
-                registrationForm.querySelector("input[name='schedule_id']").value = scheduleId;
-            })
-        });
-    </script>
+    <script defer src="../../static/js/update_class_registration_schedule_id.js"></script>
 {% endblock %}

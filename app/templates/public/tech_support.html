@@ -14,11 +14,11 @@
             <p>We offer a few different ways to get support with your tech.</p>
             <ul>
                 <li>In-Person</li>
-                <p>Get in person support during our drop-in hours. We regularly post updated times and locations for where we have our drop-in tech support. We try to have at least two a month. We prefer if you let us know before hand if you're coming, but if that's not possible, we are happy to help if you just drop by.</p>
+                <li>Get in person support during our drop-in hours. We regularly post updated times and locations for where we have our drop-in tech support. We try to have at least two a month. We prefer if you let us know before hand if you're coming, but if that's not possible, we are happy to help if you just drop by.</li>
                 <li>In-Home</li>
-                <p>Get in home support if you aren't able to get to a in person drop-in. If your network isn't working, your desktop is too big to lug around, or you're just unable to make it due to a disability or unreliable transportation, we will work with you to schedule a time for one of our volunteers to come to your home to help out.</p>
+                <li>Get in home support if you aren't able to get to a in person drop-in. If your network isn't working, your desktop is too big to lug around, or you're just unable to make it due to a disability or unreliable transportation, we will work with you to schedule a time for one of our volunteers to come to your home to help out.</li>
                 <li>Over the Phone</li>
-                <p>Have a simple issue that you don't mind getting walked through solving? We are more than happy to get on a phone call with you to troubleshoot your issues.</p>
+                <li>Have a simple issue that you don't mind getting walked through solving? We are more than happy to get on a phone call with you to troubleshoot your issues.</li>
             </ul>
         </section>
 
@@ -28,13 +28,15 @@
                 <ul>
                     {% for date in support_dates %}
                         <li id="support-{{ date[0] }}"><strong>{{ date[1] }}</strong></li>
-                        <ul>
-                            <li>Description: {{ date[2] }}</li>
-                            <li>Date: {{ date[3] }}</li>
-                            <li>Start Time: {{ date[4] }}</li>
-                            <li>End Time: {{ date[6] }}</li>
-                            <li>Location: {{ date[5] }}</li>
-                        </ul>
+                        <li>
+                            <ul>
+                                <li>Description: {{ date[2] }}</li>
+                                <li>Date: {{ date[3] }}</li>
+                                <li>Start Time: {{ date[4] }}</li>
+                                <li>End Time: {{ date[6] }}</li>
+                                <li>Location: {{ date[5] }}</li>
+                            </ul>
+                        </li>
                     {% endfor %}
                 </ul>
             {% else %}
@@ -263,7 +265,7 @@
                     </h3>
                     <div id="collapseTwelve" class="accordion-collapse collapse" data-bs-parent="#tech-support-faq-accordion">
                         <div class="accordion-body">
-                            If you have tech support experience or a passion for technology, we’d love to hear from you. Fill out the form <a href="{{ url_for('public.get_involved') }}">here</a> to apply to volunteer. If you’re not ready to provide tech support directly, we can help train you or connect you with other volunteer roles like outreach, purchasing, or tech donations, which are just as essential to our mission.
+                            If you have tech support experience or a passion for technology, we’d love to hear from you. Fill out the form <a href="{{ url_for('public.get_involved') }}">here to apply to volunteer</a>. If you’re not ready to provide tech support directly, we can help train you or connect you with other volunteer roles like outreach, purchasing, or tech donations, which are just as essential to our mission.
                         </div>
                     </div>
                 </div>

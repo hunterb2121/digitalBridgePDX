@@ -52,9 +52,8 @@ class DonateForm(FlaskForm):
     )
 
     message = TextAreaField(
-        "Information On Your Needs", 
+        "Information On Your Donation", 
         validators=[
-            DataRequired(), 
             Length(
                 max=5000, 
                 message="Message must be 5000 characters or less"
