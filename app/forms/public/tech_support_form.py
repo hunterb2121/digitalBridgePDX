@@ -9,13 +9,19 @@ phone_pattern = r"^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[
 class TechSupportForm(FlaskForm):
     name = StringField(
         "Name", 
-        validators=[DataRequired()]
+        validators=[
+            DataRequired(
+                message="Please enter your name"
+            )
+        ]
     )
 
     email = EmailField(
         "Email", 
         validators=[
-            DataRequired(), 
+            DataRequired(
+                message="Please enter your email"
+            ), 
             Email(
                 message="Please enter a valid email"
             )
@@ -35,7 +41,9 @@ class TechSupportForm(FlaskForm):
     support_location = RadioField(
         "Where do you need support?", 
         validators=[
-            DataRequired()
+            DataRequired(
+                message="Please select where you would like to receive support"
+            )
         ], 
         choices=[
             ("in-person", "In-Person Event"), 
@@ -47,14 +55,12 @@ class TechSupportForm(FlaskForm):
 
     preferred_times = SelectMultipleField(
         "Preferred Times",
-        validators= [
-            DataRequired()
-        ],
         choices=[
             ("morning", "Morning"),
             ("afternoon", "Afternoon"),
             ("evening", "Evening")
         ],
+        validate_choice=True,
         option_widget=widgets.CheckboxInput(),
         widget=widgets.ListWidget(prefix_label=False)
     )
@@ -62,7 +68,9 @@ class TechSupportForm(FlaskForm):
     message = TextAreaField(
         "Problem Description", 
         validators=[
-            DataRequired(),
+            DataRequired(
+                message="Please give us some information on your issue"
+            ),
             Length(
                 max=5000, 
                 message="Message must be 5000 characters or less"

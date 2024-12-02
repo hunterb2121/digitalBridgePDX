@@ -50,7 +50,7 @@ class BaseModel:
         placeholders = ', '.join(['%s'] * len(values))
         columns_str = ', '.join(columns)
         query = f'INSERT INTO {cls.table} ({columns_str}) VALUES ({placeholders}) RETURNING id'
-        return cls.execute_query(query, values)
+        return cls.get_one(query, values)
 
     @classmethod
     def update(cls, columns, values, condition):

@@ -18,14 +18,18 @@ class VolunteerRegistrationForm(FlaskForm):
     name = StringField(
         "Name", 
         validators=[
-            DataRequired()
+            DataRequired(
+                message="Please enter your name"
+            )
         ]
     )
 
     email = EmailField(
         "Email", 
         validators=[
-            DataRequired(), 
+            DataRequired(
+                message="Please enter your email"
+            ), 
             Email(
                 message="Please enter a valid email"
             )
@@ -43,13 +47,11 @@ class VolunteerRegistrationForm(FlaskForm):
     )
 
     volunteer_job = SelectMultipleField(
-        "What are you interested in volunteering to do?", 
-        validators=[
-            DataRequired()
-        ], 
+        "What are you interested in volunteering to do?",
         choices=[
             (t[1].lower(), t[1].title()) for t in jobs
         ],
+        validate_choice=True,
         option_widget=widgets.CheckboxInput(),
         widget=widgets.ListWidget(prefix_label=False)
     )
@@ -57,7 +59,9 @@ class VolunteerRegistrationForm(FlaskForm):
     experience_in_it = RadioField(
         "Do you have experience working in IT?",
         validators=[
-            DataRequired()
+            DataRequired(
+                message="Please select if you have experience in IT"
+            )
         ],
         choices=[
             ("yes", "Yes"),
@@ -68,7 +72,9 @@ class VolunteerRegistrationForm(FlaskForm):
     other_experience = RadioField(
         "Do you have experience working in any other field related to our volunteer opportunities?",
         validators=[
-            DataRequired()
+            DataRequired(
+                message="Please select if you have experience in our other volunteer opportunities"
+            )
         ],
         choices=[
             ("yes", "Yes"),
@@ -79,7 +85,9 @@ class VolunteerRegistrationForm(FlaskForm):
     experience_amount = RadioField(
         "How much experience do you have in your main field?",
         validators=[
-            DataRequired()
+            DataRequired(
+                message="Please select how much experience you have"
+            )
         ],
         choices=[
             ("0-1", "0 - 1 years"),

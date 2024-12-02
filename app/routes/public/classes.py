@@ -99,7 +99,7 @@ def classes():
     return render_template(
         "public/classes.html", 
         class_list = our_classes,
-        upcoming_classes=upcoming_classes,
+        upcoming_classes=classes_dict,
         recent_recordings=recent_recordings,
         class_recordings=dict(sorted(class_recording_info)),
         request_form=new_class_request_form,

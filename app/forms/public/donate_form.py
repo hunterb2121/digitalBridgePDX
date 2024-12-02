@@ -13,13 +13,19 @@ class DonateForm(FlaskForm):
 
     name = StringField(
         "Name", 
-        validators=[DataRequired()]
+        validators=[
+            DataRequired(
+                message="Please enter your name"
+            )
+        ]
     )
 
     email = EmailField(
         "Email", 
         validators=[
-            DataRequired(), 
+            DataRequired(
+                message="Please enter your email"
+            ), 
             Email(
                 message="Please enter a valid email"
             )
@@ -39,13 +45,15 @@ class DonateForm(FlaskForm):
     donate_type = RadioField(
         "What are you planning on donating?", 
         validators=[
-            DataRequired()
+            DataRequired(
+                message="Please let us know what you are going to be donating"
+            )
         ], 
         choices=[
             ("computer", "Computer"), 
-            ("cell_phone", "Cell Phone"), 
+            ("cell phone", "Cell Phone"), 
             ("tablet", "Tablet"),
-            ("other_devices", "Other Device"), 
+            ("other device", "Other Device"), 
             ("money", "Money")
         ],
         default="computer"

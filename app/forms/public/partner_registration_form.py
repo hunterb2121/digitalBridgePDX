@@ -14,21 +14,27 @@ class PartnerRegistrationForm(FlaskForm):
     business_name = StringField(
         "Business Name",
         validators=[
-            DataRequired()
+            DataRequired(
+                message="Please enter your businesses name"
+            )
         ]
     )
 
     contact_name = StringField(
         "Contact Person Name", 
         validators=[
-            DataRequired()
+            DataRequired(
+                message="Please enter who we should get in contact with"
+            )
         ]
     )
 
     email = EmailField(
         "Email", 
         validators=[
-            DataRequired(), 
+            DataRequired(
+                message="Please enter an email for us to reach out to"
+            ), 
             Email(
                 message="Please enter a valid email"
             )
@@ -38,7 +44,9 @@ class PartnerRegistrationForm(FlaskForm):
     phone_number = TelField(
         "Phone Number", 
         validators=[
-            DataRequired(),
+            DataRequired(
+                message="Please enter a phone number"
+            ),
             Regexp(
                 phone_pattern, 
                 message="Please enter a valid phone number"

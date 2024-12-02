@@ -13,13 +13,17 @@ class NewClassRequestForm(FlaskForm):
     name = StringField(
         "Name", 
         validators=[
-            DataRequired()
+            DataRequired(
+                message="Please enter your name"
+            )
         ]
     )
     email = EmailField(
         "Email", 
         validators=[
-            DataRequired(), 
+            DataRequired(
+                message="Please enter your email"
+            ), 
             Email(
                 message="Please enter a valid email"
             )
@@ -37,7 +41,9 @@ class NewClassRequestForm(FlaskForm):
     class_idea = TextAreaField(
         "Message", 
         validators=[
-            DataRequired(), 
+            DataRequired(
+                message="Please give us some information on your idea"
+            ), 
             Length(
                 max=5000, 
                 message="Message must be 5000 characters or less"

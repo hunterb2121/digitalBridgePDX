@@ -27,7 +27,7 @@
             <h2>Class Calendar</h2>
             {% if upcoming_classes %}
                 <div id="upcoming_classes_cards">
-                    {% for id, class in upcoming_classes %}
+                    {% for id, class in upcoming_classes.items() %}
                         <div class="card" id="upcoming-class-card-{{ id }}">
                             <h3 class="card-header">{{ class.title }}</h3>
                             <div class="card-body">

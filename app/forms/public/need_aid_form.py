@@ -14,14 +14,18 @@ class NeedAidForm(FlaskForm):
     name = StringField(
         "Name", 
         validators=[
-            DataRequired()
+            DataRequired(
+                message="Please enter your name"
+            )
         ]
     )
 
     email = EmailField(
         "Email", 
         validators=[
-            DataRequired(), 
+            DataRequired(
+                message="Please enter your email"
+            ), 
             Email(
                 message="Please enter a valid email"
             )
@@ -41,11 +45,13 @@ class NeedAidForm(FlaskForm):
     aid_type = RadioField(
         "Type of aid needed", 
         validators=[
-            DataRequired()
+            DataRequired(
+                message="Please let us know what you need"
+            )
         ], 
         choices=[
             ("computer", "Computer"), 
-            ("cell_phone", "Cell Phone"), 
+            ("cell phone", "Cell Phone"), 
             ("tablet", "Tablet"), 
             ("bills", "Bills"), 
             ("other", "Other")
@@ -56,22 +62,26 @@ class NeedAidForm(FlaskForm):
     income = RadioField(
         "Yearly Income", 
         validators=[
-            DataRequired()
+            DataRequired(
+                message="Please select your income to help us prioritize your request"
+            )
         ], 
         choices=[
-            ("lower", "Less than $30,001"), 
-            ("lower_middle", "$30,001 - $58,020"), 
-            ("middle", "$58,021 - $94,000"), 
-            ("middle_upper", "94,001 - $153,000"), 
-            ("upper", "Greater than $153,000")
+            ("less than 30,001", "Less than $30,001"), 
+            ("30,001-58,020", "$30,001 - $58,020"), 
+            ("58,021-94,000", "$58,021 - $94,000"), 
+            ("94,001-153,000", "94,001 - $153,000"), 
+            ("greater than 153,000", "Greater than $153,000")
         ],
-        default="lower"
+        default="less than 30,001"
     )
 
     message = TextAreaField(
         "Information On Your Needs", 
         validators=[
-            DataRequired(), 
+            DataRequired(
+                message="Please give us a little more information on your needs"
+            ), 
             Length(
                 max=5000, 
                 message="Message must be 5000 characters or less"
