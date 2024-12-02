@@ -13,11 +13,11 @@ def initialize_pool(minconn=1, maxconn=20):
         connection_pool = psycopg2.pool.SimpleConnectionPool(
             minconn,
             maxconn,
-            database=os.environ.get("DB_NAME_TECHMUTUALAID", "digitalbridgetest"),
-            user=os.environ.get("DB_USER_TECHMUTUALAID", "digitalbridgetest"),
-            password=os.environ.get("DB_PASS_TECHMUTUALAID", "BrP5MQozsePhThr"),
-            host=os.environ.get("DB_HOST_TECHMUTUALAID", "localhost"),
-            port=os.environ.get("DB_PORT_TECHMUTUALAID", "5432")
+            database=os.environ.get("DB_NAME"),
+            user=os.environ.get("DB_USER"),
+            password=os.environ.get("DB_PASS"),
+            host=os.environ.get("DB_HOST"),
+            port=os.environ.get("DB_PORT")
         )
         print("Got connection")
     except Exception as e:
