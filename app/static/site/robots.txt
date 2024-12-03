@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /volunteers/
+Allow: /
+Sitemap: https://digitalbridgepdx.com/sitemap.xml
